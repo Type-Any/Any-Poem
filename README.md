@@ -28,9 +28,9 @@
 1. 라이센스는 MIT 유지 및 open repo로 유지
 2. 플로우 차트 같이 그리기 (https://www.draw.io) -> 핵심적인 기능
 3. 어도비 XD로 같이 디자인 보여서 논의하기?
+4. API layer : graphql 사용
 
 ## 논의중인 사항
 
 1. 서비스 이름은? (노션에서 논의중)
-2. graphql로 할까요? (슬랙에서 투표중)
-3. ‘ORM’은 typeORM으로? (슬랙에서 투표중)
+2. ‘ORM’은 typeORM으로? (슬랙에서 투표중)
