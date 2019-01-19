@@ -1,4 +1,7 @@
+/* eslint-disable import/first */
+/* eslint-disable import/no-unresolved */
 import dotenv from "dotenv";
+
 dotenv.config();
 
 import express from "express";
@@ -8,8 +11,8 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { graphqlUploadExpress } from "graphql-upload";
 import graphqlHTTP from "express-graphql";
-import decodeJWT from "./utils/decodeJWT";
 import { createConnection } from "typeorm";
+import decodeJWT from "./utils/decodeJWT";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import parseHeaderAuthorization from "./utils/parseHeaderAuthorization";
@@ -24,11 +27,10 @@ app.use(cookieParser());
 app.use(
   "/",
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
-  graphqlHTTP(async (request, response, graphQLParams) => {
-    let user = undefined;
+  graphqlHTTP(async request => {
+    let user;
 
-    const token =
-      request.cookies["X-JWT"] || parseHeaderAuthorization(request) || "";
+    const token = request.cookies["X-JWT"] || parseHeaderAuthorization(request) || "";
     if (token) {
       user = await decodeJWT(token);
     }

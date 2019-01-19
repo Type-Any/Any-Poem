@@ -1,10 +1,21 @@
-# Any Poem Frontend
+# Frontend
 
-## Typescript, Prettier 적용 (자동 수정)
+## Tech Stack
 
-## Styled-components 적용
+-   Full Typed Typescript
+-   Next.js
+-   GraphQL (Apollo Client)
+-   Styled-components
+-   JWT authorization (cookie, headers parsing)
 
-### tslint
+## 기능 (Features)
 
--   세미콜론 X
--   쌍따옴표
+-   [ ] Main Page
+-   [ ] Sign Page (Sign in, Sign up, 3rd party Auth)
+-   [ ] My Profile Page
+-   [ ] Write Page
+-   [ ] Content Detail Page
+
+## Notes
+
+## To-Dos

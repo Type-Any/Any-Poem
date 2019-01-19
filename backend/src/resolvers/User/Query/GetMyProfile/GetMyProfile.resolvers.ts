@@ -12,21 +12,21 @@ const resolvers = {
           const profile = await User.findOne({ id: user.id });
           if (profile) {
             return {
-              ok: true,
               error: null,
+              ok: true,
               profile
             };
           } else {
             return {
-              ok: false,
               error: "User Not Found",
+              ok: false,
               profile: null
             };
           }
         } catch (error) {
           return {
-            ok: false,
             error: error.message,
+            ok: false,
             profile: null
           };
         }
