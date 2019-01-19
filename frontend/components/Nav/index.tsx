@@ -14,6 +14,11 @@ const Nav = () => (
         <A>About</A>
       </Link>
     </Li>
+    <Li>
+      <Link href="/login">
+        <A>Login</A>
+      </Link>
+    </Li>
   </Container>
 );
 
