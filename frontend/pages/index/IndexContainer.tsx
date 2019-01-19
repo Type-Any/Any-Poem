@@ -1,26 +1,26 @@
-import React from "react"
-import IndexPresenter from "./IndexPresenter"
-import { NextContext } from "next"
+import { NextContext } from "next";
+import React from "react";
+import IndexPresenter from "./IndexPresenter";
 
 interface IProps {
-	from: string
+  from: string;
 }
 
 export default class extends React.Component<IProps> {
-	static async getInitialProps({ req }: NextContext): Promise<IProps> {
-		let initialProps = {
-			from: "client"
-		}
+  static async getInitialProps({ req }: NextContext): Promise<IProps> {
+    const initialProps = {
+      from: "client"
+    };
 
-		if (req) {
-			// server side
-			initialProps.from = "server"
-		}
+    if (req) {
+      // server side
+      initialProps.from = "server";
+    }
 
-		return initialProps
-	}
+    return initialProps;
+  }
 
-	render() {
-		return <IndexPresenter {...this.props} />
-	}
+  render() {
+    return <IndexPresenter {...this.props} />;
+  }
 }

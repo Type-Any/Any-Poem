@@ -1,0 +1,15 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "rules": {
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "indent": ["error", 2],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "no-console": "warn"
+  },
+  "env": {
+    "browser": true
+  }
+}

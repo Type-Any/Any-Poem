@@ -10,8 +10,8 @@ const s3 = new aws.S3({
   endpoint: process.env.AWS_S3_ENDPOINT
 });
 
-export const uploadToS3 = ({ stream, filename }) => {
-  return new Promise(async (resolve, reject) => {
+export const uploadToS3 = ({ stream, filename }) =>
+  new Promise(async resolve => {
     const extension = filename.split(".").pop();
     const key = `profile_images/${uuid()}.${extension}`;
 
@@ -29,10 +29,8 @@ export const uploadToS3 = ({ stream, filename }) => {
 
     resolve(url);
   });
-};
-
-export const deletePrevProfileImage = url => {
-  return new Promise((resolve, reject) => {
+export const deletePrevProfileImage = url =>
+  new Promise((resolve, reject) => {
     if (!url) throw new Error("Filename has to be received");
 
     const filename = url.slice(1);
@@ -47,4 +45,3 @@ export const deletePrevProfileImage = url => {
       }
     );
   });
-};

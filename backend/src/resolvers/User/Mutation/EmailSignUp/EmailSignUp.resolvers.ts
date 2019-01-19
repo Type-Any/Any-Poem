@@ -1,44 +1,38 @@
 import User from "../../../../entities/User";
-import {
-  EmailSignUpMutationArgs,
-  EmailSignUpResponse
-} from "../../../../types/graph";
+import { EmailSignUpMutationArgs, EmailSignUpResponse } from "../../../../types/graph";
 
 const resolvers = {
   Mutation: {
-    EmailSignUp: async (
-      _: any,
-      args: EmailSignUpMutationArgs
-    ): Promise<EmailSignUpResponse> => {
+    EmailSignUp: async (_: any, args: EmailSignUpMutationArgs): Promise<EmailSignUpResponse> => {
       try {
         const { email } = args;
         const existingUser = await User.findOne({ email });
         if (existingUser) {
           return {
-            ok: false,
             error: "This email has signed up already, please sign in",
+            ok: false,
             user: null
           };
         } else {
           const user = await User.create({ ...args }).save();
           if (user) {
             return {
-              ok: true,
               error: null,
+              ok: true,
               user
             };
           } else {
             return {
-              ok: false,
               error: "Registering Failed",
+              ok: false,
               user: null
             };
           }
         }
       } catch (error) {
         return {
-          ok: false,
           error: error.message,
+          ok: false,
           user: null
         };
       }
