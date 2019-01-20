@@ -9,7 +9,7 @@ const resolvers = {
         const user: User = ctx.user;
 
         try {
-          const profile = await User.findOne({ id: user.id });
+          const profile = user;
           if (profile) {
             return {
               error: null,

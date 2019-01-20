@@ -16,6 +16,7 @@ import decodeJWT from "./utils/decodeJWT";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import parseHeaderAuthorization from "./utils/parseHeaderAuthorization";
+import User from "./entities/User";
 
 const app = express();
 
@@ -32,7 +33,8 @@ app.use(
 
     const token = request.cookies["X-JWT"] || parseHeaderAuthorization(request) || "";
     if (token) {
-      user = await decodeJWT(token);
+      const userId = await decodeJWT(token);
+      user = await User.findOne({ id: userId });
     }
 
     return {
