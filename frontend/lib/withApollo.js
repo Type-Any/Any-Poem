@@ -9,16 +9,18 @@ const parseCookies = (req, options = {}) => cookie.parse(req ? req.headers.cooki
 
 export default App =>
   class WithData extends React.Component {
-    static async getInitialProps({ ctx, router, Component }) {
+    static async getInitialProps({ Component, router, ctx }) {
       const props = {};
+
+      const token = parseCookies(ctx.req).token;
+      ctx.token = token;
+
+      const apolloClient = initApollo({}, token);
+      ctx.apolloClient = apolloClient;
 
       if (Component.getInitialProps) props.pageProps = await Component.getInitialProps(ctx);
 
-      const token = parseCookies(ctx.req).token;
-      props.token = token;
-
       if (ctx.req) {
-        const apolloClient = initApollo({}, token);
         try {
           await getDataFromTree(
             <WithData {...props} apolloClient={apolloClient} router={router} Component={Component} />
