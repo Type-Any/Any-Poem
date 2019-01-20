@@ -9,6 +9,7 @@
     "lint": "yarn tslint -e './**/*.js?(x)' --project ."
   },
   "dependencies": {
+    "@types/cookie": "^0.3.2",
     "@zeit/next-typescript": "^1.1.1",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-client": "^2.4.12",

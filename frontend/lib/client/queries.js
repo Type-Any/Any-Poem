@@ -6,3 +6,9 @@ export const GET_ISLOGIN = gql`
     isLogin @client
   }
 `;
+
+export const SET_ISLOGIN = gql`
+  mutation SetIsLogin($isLogin: Boolean) {
+    setIsLogin(isLogin: $isLogin) @client
+  }
+`;
