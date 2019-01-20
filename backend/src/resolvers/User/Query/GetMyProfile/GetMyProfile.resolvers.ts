@@ -6,10 +6,10 @@ const resolvers = {
   Query: {
     GetMyProfile: privateResolver(
       async (_: any, __: any, ctx: any): Promise<GetMyProfileResponse> => {
-        const user: User = ctx.user;
+        const userId: number = ctx.userId;
 
         try {
-          const profile = user;
+          const profile = await User.findOne({ id: userId });
           if (profile) {
             return {
               error: null,
