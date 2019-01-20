@@ -5,20 +5,24 @@ import React from "react";
 import { withApollo } from "react-apollo";
 import { SET_ISLOGIN } from "../../lib/client/queries";
 import checkLogin from "../../utils/checkLogin";
+import redirect from "../../utils/redirect";
 import LoginPresenter from "./LoginPresenter";
 import { EMAIL_SIGN_IN } from "./LoginQueries";
-import redirect from "../../utils/redirect";
 
 interface IProps {
   from: string;
-  // loggedInUser: {
-  //   ok: boolean;
-  //   error: string;
-  // };
+  email: string;
+  password: string;
+  handleChange: (e: any) => void;
+  handleSubmit: () => void;
+}
+
+interface IInitialProps {
+  from: string;
 }
 
 class Login extends React.Component<IProps> {
-  static async getInitialProps(context: NextContext): Promise<IProps> {
+  static async getInitialProps(context: NextContext): Promise<IInitialProps> {
     const initialProps = {
       from: "client"
     };
@@ -28,12 +32,12 @@ class Login extends React.Component<IProps> {
     if (context.req) {
       // server side
       initialProps.from = "server";
-      if (loggedInUser) {
+      if (loggedInUser.ok) {
         redirect(context, "/");
       }
     } else {
       // redirect if logged in && client side
-      if (loggedInUser) {
+      if (loggedInUser.ok) {
         redirect({}, "/");
       }
     }
