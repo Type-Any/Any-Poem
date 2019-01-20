@@ -1,5 +1,5 @@
 const privateResolver = (resolverFunction: any) => async (root: any, args: any, ctx: any, info: any) => {
-  if (!ctx.user) {
+  if (!ctx.userId) {
     return { ok: false, data: null, error: "Login is required!" };
   }
 

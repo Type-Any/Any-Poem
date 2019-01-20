@@ -29,18 +29,17 @@ app.use(
   "/",
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   graphqlHTTP(async request => {
-    let user;
+    let userId;
 
     const token = request.cookies["X-JWT"] || parseHeaderAuthorization(request) || "";
     if (token) {
-      const userId = await decodeJWT(token);
-      user = await User.findOne({ id: userId });
+      userId = await decodeJWT(token);
     }
 
     return {
       schema,
       graphiql: true,
-      context: { request, user }
+      context: { request, userId }
     };
   })
 );
