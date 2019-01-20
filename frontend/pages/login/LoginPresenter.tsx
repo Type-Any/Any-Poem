@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 interface IProps {
   from: string;
-  loggedInUser: any;
   email: string;
   password: string;
   handleChange: (e: any) => void;
   handleSubmit: () => void;
 }
 
-export default ({ from, loggedInUser, email, password, handleChange, handleSubmit }: IProps) => (
+export default ({ from, email, password, handleChange, handleSubmit }: IProps) => (
   <Container>
     <h1>Login page</h1>
     <p>Rendered from {from}</p>
