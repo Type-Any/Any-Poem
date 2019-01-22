@@ -8,8 +8,13 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
+import Poem from "./Poem";
+import Comment from "./Comment";
 
 const BCRYPT_ROUNDS = 10;
 
@@ -26,10 +31,16 @@ class User extends BaseEntity {
   password: string;
 
   @Column({ type: "text", nullable: false })
-  firstName: string;
+  fullName: string;
 
   @Column({ type: "text", nullable: false })
-  lastName: string;
+  penName: string;
+
+  @Column({ type: "text" })
+  bio: string;
+
+  @Column()
+  avatar: string;
 
   @CreateDateColumn()
   createdAt: string;
@@ -37,9 +48,18 @@ class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: string;
 
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
+  @OneToMany(type => Poem, poem => poem.poet)
+  poems: Poem[];
+
+  @OneToMany(type => Comment, comment => comment.commenter)
+  comments: Comment[];
+
+  @ManyToMany(type => User, user => user.following)
+  followers: User[];
+
+  @ManyToMany(type => User, user => user.followers)
+  @JoinTable()
+  following: User[];
 
   public comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
@@ -53,6 +73,7 @@ class User extends BaseEntity {
       this.password = hashedPassword;
     }
   }
+
   private hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, BCRYPT_ROUNDS);
   }
