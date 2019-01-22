@@ -4,8 +4,9 @@ import React from "react";
 import { ApolloProvider } from "react-apollo";
 import Nav from "../components/Nav";
 import withApollo from "../lib/withApollo";
+import { NextContextWithApollo } from "../types/types";
 
-class MyApp extends App {
+class MyApp extends App<NextContextWithApollo> {
   render() {
     const { Component, pageProps, apolloClient } = this.props;
     return (
