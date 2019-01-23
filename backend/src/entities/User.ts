@@ -36,10 +36,10 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: false })
   penName: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   bio: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
   @CreateDateColumn()

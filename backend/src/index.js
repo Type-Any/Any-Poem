@@ -16,7 +16,6 @@ import decodeJWT from "./utils/decodeJWT";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import parseHeaderAuthorization from "./utils/parseHeaderAuthorization";
-import User from "./entities/User";
 
 const app = express();
 

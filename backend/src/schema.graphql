@@ -13,6 +13,7 @@ type EmailSignUpResponse {
   ok: Boolean!
   error: String
   user: User
+  token: String
 }
 
 type GetMyProfileResponse {
@@ -31,8 +32,8 @@ type User {
   password: String!
   fullName: String!
   penName: String!
-  bio: String!
-  avatar: String!
+  bio: String
+  avatar: String
   createdAt: String!
   updatedAt: String
 }

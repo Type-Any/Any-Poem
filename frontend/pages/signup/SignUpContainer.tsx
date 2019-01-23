@@ -1,11 +1,13 @@
 import cookie from "cookie";
+import Router from "next/router";
 import React from "react";
 import { withApollo } from "react-apollo";
+import { SET_ISLOGIN } from "../../lib/client/queries";
 import { ApolloClientType, NextContextWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
-import LoginPresenter from "./LogInPresenter";
-import { EMAIL_SIGN_IN } from "./LogInQueries";
+import SignUpPresenter from "./SignUpPresenter";
+import { EMAIL_SIGN_UP } from "./SignUpQueries";
 
 interface IProps extends ApolloClientType {
   from: string;
@@ -15,7 +17,7 @@ interface IProps extends ApolloClientType {
   handleSubmit: () => void;
 }
 
-class Login extends React.Component<IProps> {
+class SignUp extends React.Component<IProps> {
   static async getInitialProps(context: NextContextWithApollo): Promise<{}> {
     const initialProps = {};
 
@@ -36,7 +38,9 @@ class Login extends React.Component<IProps> {
   }
   state = {
     email: "",
-    password: ""
+    fullName: "",
+    password: "",
+    penName: ""
   };
 
   _handleChange = (e: any): void => {
@@ -46,32 +50,45 @@ class Login extends React.Component<IProps> {
   };
 
   _handleSubmit = async () => {
-    const { email, password } = this.state;
+    const { email, password, fullName, penName } = this.state;
     const { data } = await this.props.client.mutate({
-      mutation: EMAIL_SIGN_IN,
+      mutation: EMAIL_SIGN_UP,
       variables: {
         email,
-        password
+        fullName,
+        password,
+        penName
       }
     });
 
-    if (data.EmailSignIn.ok) {
-      document.cookie = cookie.serialize("token", data.EmailSignIn.token, {
+    if (data.EmailSignUp.ok) {
+      document.cookie = cookie.serialize("token", data.EmailSignUp.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
-      // apolloClient 초기화를 위한 SSR routing
-      window.location.href = "/";
+
+      this.props.client.cache.reset().then(() =>
+        this.props.client
+          .mutate({
+            mutation: SET_ISLOGIN,
+            variables: { isLogin: true }
+          })
+          .then(() => {
+            Router.replace("/");
+          })
+      );
     } else {
-      console.log(data.EmailSignIn.error);
+      console.log(data.EmailSignUp.error);
     }
   };
 
   render() {
     return (
-      <LoginPresenter
+      <SignUpPresenter
         {...this.props}
         email={this.state.email}
         password={this.state.password}
+        fullName={this.state.fullName}
+        penName={this.state.penName}
         handleChange={this._handleChange}
         handleSubmit={this._handleSubmit}
       />
@@ -79,4 +96,4 @@ class Login extends React.Component<IProps> {
   }
 }
 
-export default withApollo(Login);
+export default withApollo(SignUp);
