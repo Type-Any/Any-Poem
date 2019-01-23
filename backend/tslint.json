@@ -26,7 +26,8 @@
     "no-empty": false,
     "no-var-requires": false,
     "no-namespace": [true, "allow-declarations"],
-    "arrow-parens": [true, "ban-single-arg-parens"]
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
   },
   "linterOptions": {
     "exclude": ["node_modules"]
