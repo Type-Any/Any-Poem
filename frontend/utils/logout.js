@@ -2,13 +2,13 @@ import cookie from "cookie";
 import redirect from "./redirect";
 
 const logout = apolloClient => () => {
-  console.log("logout");
   document.cookie = cookie.serialize("token", "", {
     maxAge: -1
   });
 
   apolloClient.cache.reset().then(() => {
-    redirect({}, "/");
+    // aplloClient 초기화를 위한 SSR routing
+    window.location.href = "/";
   });
 };
 

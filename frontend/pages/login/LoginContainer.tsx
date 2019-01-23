@@ -1,13 +1,11 @@
 import cookie from "cookie";
-import Router from "next/router";
 import React from "react";
 import { withApollo } from "react-apollo";
-import { SET_ISLOGIN } from "../../lib/client/queries";
 import { ApolloClientType, NextContextWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
-import LoginPresenter from "./LoginPresenter";
-import { EMAIL_SIGN_IN } from "./LoginQueries";
+import LoginPresenter from "./LogInPresenter";
+import { EMAIL_SIGN_IN } from "./LogInQueries";
 
 interface IProps extends ApolloClientType {
   from: string;
@@ -22,7 +20,6 @@ class Login extends React.Component<IProps> {
     const initialProps = {};
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
-
     if (context.req) {
       // server side
       if (loggedInUser && loggedInUser.ok) {
@@ -62,17 +59,8 @@ class Login extends React.Component<IProps> {
       document.cookie = cookie.serialize("token", data.EmailSignIn.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
-
-      this.props.client.cache.reset().then(() =>
-        this.props.client
-          .mutate({
-            mutation: SET_ISLOGIN,
-            variables: { isLogin: true }
-          })
-          .then(() => {
-            Router.replace("/");
-          })
-      );
+      // apolloClient 초기화를 위한 SSR routing
+      window.location.href = "/";
     } else {
       console.log(data.EmailSignIn.error);
     }

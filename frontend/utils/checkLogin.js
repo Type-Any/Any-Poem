@@ -7,9 +7,10 @@ export const ME = gql`
       profile {
         id
         email
-        firstName
-        lastName
         fullName
+        penName
+        bio
+        avatar
         createdAt
         updatedAt
       }
@@ -23,10 +24,5 @@ export default apolloClient =>
     .query({
       query: ME
     })
-    .then(({ data: { GetMyProfile } }) => {
-      return { loggedInUser: GetMyProfile };
-    })
-    .catch(() => {
-      // Fail gracefully
-      return { loggedInUser: null };
-    });
+    .then(({ data: { GetMyProfile } }) => ({ loggedInUser: GetMyProfile }))
+    .catch(() => ({ loggedInUser: null }));
