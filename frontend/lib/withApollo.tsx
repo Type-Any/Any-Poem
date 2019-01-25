@@ -1,15 +1,23 @@
+import { NormalizedCacheObject } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import cookie, { CookieParseOptions } from "cookie";
 import "cross-fetch/polyfill";
-import cookie from "cookie";
-import React from "react";
+import { NextContext } from "next";
+import { AppProps, default as NextApp, DefaultAppIProps } from "next/app";
 import Head from "next/head";
+import React from "react";
 import { getDataFromTree } from "react-apollo";
+import { NextAppContextWithApollo, WithApolloProps } from "../types/types";
 import initApollo from "./initApollo";
 
-const parseCookies = (req, options = {}) => cookie.parse(req ? req.headers.cookie || "" : document.cookie, options);
+const parseCookies = (req: NextContext["req"], options: CookieParseOptions = {}) =>
+  cookie.parse(req ? req.headers.cookie || "" : document.cookie, options);
 
-export default App =>
-  class WithData extends React.Component {
-    static async getInitialProps(context) {
+export default function withApollo<TCache = any>(App: typeof NextApp) {
+  type ApolloProps = WithApolloProps<TCache>;
+
+  return class WithData extends React.Component<ApolloProps & AppProps & DefaultAppIProps> {
+    static async getInitialProps(context: NextAppContextWithApollo) {
       const { Component, router, ctx } = context;
 
       const { token } = parseCookies(ctx.req);
@@ -17,7 +25,7 @@ export default App =>
       const apolloClient = initApollo({}, token);
       ctx.apolloClient = apolloClient;
 
-      let appProps = {};
+      let appProps = { pageProps: {} };
       if (App.getInitialProps) {
         appProps = await App.getInitialProps(context);
       }
@@ -45,8 +53,8 @@ export default App =>
         token
       };
     }
-
-    constructor(props) {
+    apolloClient: ApolloClient<NormalizedCacheObject>;
+    constructor(props: ApolloProps & AppProps & DefaultAppIProps & { token: string }) {
       super(props);
       this.apolloClient = initApollo(props.apolloCache, props.token);
     }
@@ -55,3 +63,4 @@ export default App =>
       return <App {...this.props} apolloClient={this.apolloClient} />;
     }
   };
+}

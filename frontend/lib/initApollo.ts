@@ -1,14 +1,16 @@
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
-import { createUploadLink } from "apollo-upload-client";
 import { setContext } from "apollo-link-context";
 import { withClientState } from "apollo-link-state";
+import { createUploadLink } from "apollo-upload-client";
 import fetch from "cross-fetch";
 import defaults from "./client/defaults";
 import resolvers from "./client/resolvers";
 
-let _apolloClient = null;
+declare const global: GlobalFetch;
+
+let _apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const isServer = typeof window === "undefined";
 
@@ -16,10 +18,10 @@ if (isServer) {
   global.fetch = fetch;
 }
 
-const create = (initCache, token) => {
+const create = (initCache: NormalizedCacheObject, token: string) => {
   const httpLink = createUploadLink({
-    uri: process.env.GRAPHQL_URL,
-    credentials: "same-origin"
+    credentials: "same-origin",
+    uri: process.env.GRAPHQL_URL
   });
 
   const authLink = setContext((_, { headers }) => ({
@@ -37,14 +39,14 @@ const create = (initCache, token) => {
   });
 
   return new ApolloClient({
+    cache,
     connectToDevTools: !isServer,
-    ssrMode: isServer,
     link: ApolloLink.from([authLink, stateLink, httpLink]),
-    cache
+    ssrMode: isServer
   });
 };
 
-const initApollo = (initCache, token) => {
+const initApollo = (initCache: NormalizedCacheObject | {}, token: string) => {
   if (isServer) {
     return create(initCache, token);
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
 import styled from "styled-components";
-import { IProfile } from "../../types/user";
+import { IProfile } from "../../types/types";
 import logout from "../../utils/logout";
 
 interface IProps {

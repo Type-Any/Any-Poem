@@ -11,7 +11,6 @@ export default class extends React.Component<IProps> {
     const initialProps = {
       from: "client"
     };
-
     if (req) {
       // server side
       initialProps.from = "server";

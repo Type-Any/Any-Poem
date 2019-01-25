@@ -1,6 +1,5 @@
-import { NextContext } from "next";
 import React from "react";
-import { IProfile } from "../../types/user";
+import { ctxWithApollo, IProfile } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import AboutPresenter from "./AboutPresenter";
 
@@ -13,17 +12,14 @@ interface IProps {
 }
 
 export default class extends React.Component<IProps> {
-  static async getInitialProps(context: NextContext): Promise<IProps> {
-    const initialProps = {};
-
+  static async getInitialProps(context: ctxWithApollo): Promise<IProps> {
     const { loggedInUser }: IProps = await checkLogin(context.apolloClient);
-    initialProps.loggedInUser = loggedInUser;
 
     if (context.req) {
       // server side
     }
 
-    return initialProps;
+    return { loggedInUser };
   }
 
   render() {

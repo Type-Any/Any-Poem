@@ -1,22 +1,19 @@
+import { ApolloClient } from "apollo-client";
 import cookie from "cookie";
 import React from "react";
 import { withApollo } from "react-apollo";
-import { ApolloClientType, NextContextWithApollo } from "../../types/types";
+import { ctxWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
 import LoginPresenter from "./LogInPresenter";
 import { EMAIL_SIGN_IN } from "./LogInQueries";
 
-interface IProps extends ApolloClientType {
-  from: string;
-  email: string;
-  password: string;
-  handleChange: (e: any) => void;
-  handleSubmit: () => void;
+interface IPropsWithApollo {
+  client: ApolloClient<any>;
 }
 
-class Login extends React.Component<IProps> {
-  static async getInitialProps(context: NextContextWithApollo): Promise<{}> {
+class Login extends React.Component<IPropsWithApollo & {}> {
+  static async getInitialProps(context: ctxWithApollo): Promise<{}> {
     const initialProps = {};
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
