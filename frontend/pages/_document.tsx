@@ -1,5 +1,5 @@
 import Document, { Head, Main, NextDocumentContext, NextScript } from "next/document";
-import { createGlobalStyle, ServerStyleSheet } from "styled-components";
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document<IProps> {
   static getInitialProps({ renderPage }: NextDocumentContext) {
