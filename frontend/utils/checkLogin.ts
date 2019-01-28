@@ -1,3 +1,4 @@
+import { ApolloClient, ApolloQueryResult } from "apollo-client";
 import gql from "graphql-tag";
 
 export const ME = gql`
@@ -19,10 +20,12 @@ export const ME = gql`
   }
 `;
 
-export default apolloClient =>
+export default (apolloClient: ApolloClient<any>) =>
   apolloClient
     .query({
       query: ME
     })
-    .then(({ data: { GetMyProfile } }) => ({ loggedInUser: GetMyProfile }))
+    .then(({ data: { GetMyProfile } }: ApolloQueryResult<any>) => ({
+      loggedInUser: GetMyProfile
+    }))
     .catch(() => ({ loggedInUser: null }));

@@ -1,7 +1,7 @@
+import { ApolloClient } from "apollo-client";
 import cookie from "cookie";
-import redirect from "./redirect";
 
-const logout = apolloClient => () => {
+const logout = (apolloClient: ApolloClient<any>) => () => {
   document.cookie = cookie.serialize("token", "", {
     maxAge: -1
   });

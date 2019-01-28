@@ -4,6 +4,7 @@ import { ApolloClient } from "apollo-client";
 import { NextContext, NextComponentType } from "next";
 import { AppProps, NextAppContext } from "next/app";
 import { NormalizedCacheObject } from "apollo-cache-inmemory";
+import { ApolloCache } from "apollo-cache";
 
 interface GlobalFetch extends Global {
   fetch: fetch;
@@ -21,7 +22,7 @@ interface NextAppContextWithApollo extends NextAppContext {
 }
 
 interface WithApolloProps<TCache> {
-  apolloCache: WithApolloState<TCache>;
+  apolloCache: ApolloCache<TCache>;
 }
 
 interface NextAppContextWithApollo<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
