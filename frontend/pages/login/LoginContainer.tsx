@@ -5,7 +5,7 @@ import { withApollo } from "react-apollo";
 import { ctxWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
-import LoginPresenter from "./LogInPresenter";
+import LogInPresenter from "./LogInPresenter";
 import { EMAIL_SIGN_IN } from "./LogInQueries";
 
 interface IPropsWithApollo {
@@ -65,7 +65,7 @@ class Login extends React.Component<IPropsWithApollo & {}> {
 
   render() {
     return (
-      <LoginPresenter
+      <LogInPresenter
         {...this.props}
         email={this.state.email}
         password={this.state.password}
