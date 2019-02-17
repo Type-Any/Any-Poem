@@ -1,0 +1,10 @@
+type UpdatePoemResponse {
+  ok: Boolean!
+  error: String
+  poem: Poem
+}
+
+type Mutation {
+  UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!
+  LikePoem(poemId: Int!): UpdatePoemResponse!
+}

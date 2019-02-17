@@ -8,4 +8,8 @@ type User {
   avatar: String
   createdAt: String!
   updatedAt: String
+  poems: [Poem]
+  comments: [Comment]
+  followers: [User]
+  following: [User]
 }

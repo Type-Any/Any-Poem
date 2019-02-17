@@ -1,0 +1,9 @@
+type SaveCommentResponse {
+  ok: Boolean!
+  error: String
+  comment: Comment
+}
+
+type Mutation {
+  SaveComment(poemId: Int!, parentId: Int, text: String): SaveCommentResponse!
+}

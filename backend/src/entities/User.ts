@@ -7,14 +7,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  OneToMany,
+  JoinTable,
   ManyToMany,
-  JoinTable
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
-import Poem from "./Poem";
 import Comment from "./Comment";
+import Poem from "./Poem";
 
 const BCRYPT_ROUNDS = 10;
 
