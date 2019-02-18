@@ -7,10 +7,9 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
-    "graphql-upload": "^8.0.3",
+    "graphql-yoga": "^1.17.4",
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
     "merge-graphql-schemas": "^1.5.8",
@@ -44,7 +43,7 @@
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/index.js",
+    "dev": "nodemon --exec ts-node ./src/index.ts",
     "predev": "yarn types",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/resolvers/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
