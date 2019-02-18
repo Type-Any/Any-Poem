@@ -43,7 +43,7 @@ const resolvers = {
     parent: async (root: any, args: any, ctx: any): Promise<Comment | null> => {
       try {
         const comment = await Comment.findOne({ where: { id: root.id }, relations: ["parent"] });
-        if (comment) {
+        if (comment && comment.parent) {
           return comment.parent;
         } else {
           return null;

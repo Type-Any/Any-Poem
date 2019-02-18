@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
@@ -23,10 +24,10 @@ class Comment extends BaseEntity {
   @ManyToOne(type => Poem, poem => poem.comments)
   poem: Poem;
 
-  @ManyToMany(type => Comment, comment => comment.children, { nullable: true })
+  @ManyToOne(type => Comment, comment => comment.children, { nullable: true })
   parent: Comment;
 
-  @ManyToMany(type => Comment, comment => comment.parent, { nullable: true })
+  @OneToMany(type => Comment, comment => comment.parent, { nullable: true })
   @JoinTable()
   children: Comment[];
 

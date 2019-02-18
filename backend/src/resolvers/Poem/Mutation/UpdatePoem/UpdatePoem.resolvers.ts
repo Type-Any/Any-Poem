@@ -23,7 +23,7 @@ const resolvers = {
           if (user) {
             poem.likes = [...poem.likes, user];
 
-            poem.save();
+            await poem.save();
           } else {
             return {
               error: "Can't find the user",
@@ -49,7 +49,7 @@ const resolvers = {
     UpdatePoem: privateResolver(
       async (_: any, args: UpdatePoemMutationArgs, ctx: any): Promise<UpdatePoemResponse> => {
         try {
-          const poem = await Poem.findOne({ id: args.poemId });
+          const poem = await Poem.findOne({ where: { id: args.poemId }, relations: ["poet"] });
 
           if (!poem) {
             return {

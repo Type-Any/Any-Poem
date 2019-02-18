@@ -35,7 +35,7 @@ const resolvers = {
 
           let parentComment: Comment | undefined;
           if (args.parentId) {
-            parentComment = await Comment.findOne({ id: args.parentId });
+            parentComment = await Comment.findOne({ where: { id: args.parentId }, relations: ["children"] });
             if (parentComment) {
               comment.parent = parentComment;
             } else {
@@ -55,7 +55,7 @@ const resolvers = {
 
           if (parentComment) {
             parentComment.children = [...parentComment.children, comment];
-            parentComment.save();
+            await parentComment.save();
           }
 
           return {

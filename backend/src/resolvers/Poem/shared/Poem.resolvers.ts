@@ -18,7 +18,7 @@ const resolvers = {
     },
     likes: async (root: any, args: any, ctx: any): Promise<User[] | null> => {
       try {
-        const poem = await Poem.findOne({ id: root.id });
+        const poem = await Poem.findOne({ where: { id: root.id }, relations: ["likes"] });
         if (poem && poem.likes) {
           return poem.likes;
         } else {
@@ -30,7 +30,7 @@ const resolvers = {
     },
     poet: async (root: any, args: any, ctx: any): Promise<User | null> => {
       try {
-        const poem = await Poem.findOne({ id: root.id });
+        const poem = await Poem.findOne({ where: { id: root.id }, relations: ["poet"] });
         if (poem && poem.poet) {
           return poem.poet;
         } else {

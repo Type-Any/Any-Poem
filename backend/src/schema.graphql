@@ -36,7 +36,7 @@ type GetCommentsResponse {
 
 type Query {
   GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!
-  GetMyPoems(skip: Int!, take: Int!): GetPoemsResponse!
+  GetMyPoems(skip: Int!, take: Int!): GetMyPoemsResponse!
   GetPoem(poemId: Int!): GetPoemResponse!
   GetPoems(skip: Int!, take: Int!): GetPoemsResponse!
   GetMyProfile: GetMyProfileResponse!
@@ -71,10 +71,7 @@ type UpdatePoemResponse {
   poem: Poem
 }
 
-type GetPoemsResponse {
-  ok: Boolean!
-  error: String
-  poems: [Poem]
+type GetMyPoemsResponse {
   ok: Boolean!
   error: String
   poems: [Poem]
@@ -84,6 +81,12 @@ type GetPoemResponse {
   ok: Boolean!
   error: String
   poem: Poem
+}
+
+type GetPoemsResponse {
+  ok: Boolean!
+  error: String
+  poems: [Poem]
 }
 
 type Poem {

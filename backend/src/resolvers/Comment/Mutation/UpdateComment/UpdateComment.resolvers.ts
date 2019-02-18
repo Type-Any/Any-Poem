@@ -59,7 +59,7 @@ const resolvers = {
 
           if (comment) {
             comment.text = args.text;
-            comment.save();
+            await comment.save();
 
             return {
               comment,

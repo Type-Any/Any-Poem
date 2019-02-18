@@ -1,9 +1,9 @@
-export const typeDefs = ["type DeleteCommentResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  DeleteComment(commentId: Int!): DeleteCommentResponse!\n  SaveComment(poemId: Int!, parentId: Int, text: String): SaveCommentResponse!\n  UpdateComment(commentId: Int!, text: String): UpdateCommentResponse!\n  LikeComment(commentId: Int!): UpdateCommentResponse!\n  DeletePoem(poemId: Int!): DeletePoemResponse!\n  SavePoem(title: String!, text: String!): SavePoemResponse!\n  UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!\n  LikePoem(poemId: Int!): UpdatePoemResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!\n}\n\ntype SaveCommentResponse {\n  ok: Boolean!\n  error: String\n  comment: Comment\n}\n\ntype UpdateCommentResponse {\n  ok: Boolean!\n  error: String\n  comment: Comment\n}\n\ntype GetCommentsResponse {\n  ok: Boolean!\n  error: String\n  comments: [Comment]\n}\n\ntype Query {\n  GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!\n  GetMyPoems(skip: Int!, take: Int!): GetPoemsResponse!\n  GetPoem(poemId: Int!): GetPoemResponse!\n  GetPoems(skip: Int!, take: Int!): GetPoemsResponse!\n  GetMyProfile: GetMyProfileResponse!\n}\n\ntype Comment {\n  id: Int!\n  commenter: User!\n  poem: Poem!\n  parent: Comment\n  children: [Comment]\n  text: String!\n  likes: [User]\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype DeletePoemResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype SavePoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype UpdatePoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype GetPoemsResponse {\n  ok: Boolean!\n  error: String\n  poems: [Poem]\n  ok: Boolean!\n  error: String\n  poems: [Poem]\n}\n\ntype GetPoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype Poem {\n  id: Int!\n  poet: User!\n  title: String!\n  text: String!\n  comments: [Comment]\n  likes: [User]\n  isPublished: Boolean!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  user: User\n  token: String\n}\n\ntype GetMyProfileResponse {\n  ok: Boolean!\n  error: String\n  profile: User\n}\n\ntype User {\n  id: Int!\n  email: String!\n  password: String!\n  fullName: String!\n  penName: String!\n  bio: String\n  avatar: String\n  createdAt: String!\n  updatedAt: String\n  poems: [Poem]\n  comments: [Comment]\n  followers: [User]\n  following: [User]\n}\n"];
+export const typeDefs = ["type DeleteCommentResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  DeleteComment(commentId: Int!): DeleteCommentResponse!\n  SaveComment(poemId: Int!, parentId: Int, text: String): SaveCommentResponse!\n  UpdateComment(commentId: Int!, text: String): UpdateCommentResponse!\n  LikeComment(commentId: Int!): UpdateCommentResponse!\n  DeletePoem(poemId: Int!): DeletePoemResponse!\n  SavePoem(title: String!, text: String!): SavePoemResponse!\n  UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!\n  LikePoem(poemId: Int!): UpdatePoemResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!\n}\n\ntype SaveCommentResponse {\n  ok: Boolean!\n  error: String\n  comment: Comment\n}\n\ntype UpdateCommentResponse {\n  ok: Boolean!\n  error: String\n  comment: Comment\n}\n\ntype GetCommentsResponse {\n  ok: Boolean!\n  error: String\n  comments: [Comment]\n}\n\ntype Query {\n  GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!\n  GetMyPoems(skip: Int!, take: Int!): GetMyPoemsResponse!\n  GetPoem(poemId: Int!): GetPoemResponse!\n  GetPoems(skip: Int!, take: Int!): GetPoemsResponse!\n  GetMyProfile: GetMyProfileResponse!\n}\n\ntype Comment {\n  id: Int!\n  commenter: User!\n  poem: Poem!\n  parent: Comment\n  children: [Comment]\n  text: String!\n  likes: [User]\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype DeletePoemResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype SavePoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype UpdatePoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype GetMyPoemsResponse {\n  ok: Boolean!\n  error: String\n  poems: [Poem]\n}\n\ntype GetPoemResponse {\n  ok: Boolean!\n  error: String\n  poem: Poem\n}\n\ntype GetPoemsResponse {\n  ok: Boolean!\n  error: String\n  poems: [Poem]\n}\n\ntype Poem {\n  id: Int!\n  poet: User!\n  title: String!\n  text: String!\n  comments: [Comment]\n  likes: [User]\n  isPublished: Boolean!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  user: User\n  token: String\n}\n\ntype GetMyProfileResponse {\n  ok: Boolean!\n  error: String\n  profile: User\n}\n\ntype User {\n  id: Int!\n  email: String!\n  password: String!\n  fullName: String!\n  penName: String!\n  bio: String\n  avatar: String\n  createdAt: String!\n  updatedAt: String\n  poems: [Poem]\n  comments: [Comment]\n  followers: [User]\n  following: [User]\n}\n"];
 /* tslint:disable */
 
 export interface Query {
   GetComments: GetCommentsResponse;
-  GetMyPoems: GetPoemsResponse;
+  GetMyPoems: GetMyPoemsResponse;
   GetPoem: GetPoemResponse;
   GetPoems: GetPoemsResponse;
   GetMyProfile: GetMyProfileResponse;
@@ -75,7 +75,7 @@ export interface Poem {
   updatedAt: string;
 }
 
-export interface GetPoemsResponse {
+export interface GetMyPoemsResponse {
   ok: boolean;
   error: string | null;
   poems: Array<Poem> | null;
@@ -85,6 +85,12 @@ export interface GetPoemResponse {
   ok: boolean;
   error: string | null;
   poem: Poem | null;
+}
+
+export interface GetPoemsResponse {
+  ok: boolean;
+  error: string | null;
+  poems: Array<Poem> | null;
 }
 
 export interface GetMyProfileResponse {

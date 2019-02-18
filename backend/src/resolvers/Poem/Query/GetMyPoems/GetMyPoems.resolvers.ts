@@ -1,11 +1,11 @@
 import Poem from "../../../../entities/Poem";
-import { GetMyPoemsQueryArgs, GetPoemsResponse } from "../../../../types/graph";
+import { GetMyPoemsQueryArgs, GetMyPoemsResponse } from "../../../../types/graph";
 import privateResolver from "../../../../utils/privateResolver";
 
 const resolvers = {
   Query: {
     GetMyPoems: privateResolver(
-      async (_: any, args: GetMyPoemsQueryArgs, ctx: any): Promise<GetPoemsResponse> => {
+      async (_: any, args: GetMyPoemsQueryArgs, ctx: any): Promise<GetMyPoemsResponse> => {
         try {
           const myPoems = await Poem.find({ where: { poet: { id: ctx.userId } }, skip: args.skip, take: args.take });
           if (myPoems) {
