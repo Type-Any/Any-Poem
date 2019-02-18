@@ -4,23 +4,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express from "express";
 import { GraphQLServer } from "graphql-yoga";
-import helmet from "helmet";
-import logger from "morgan";
 import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import decodeJWT from "./utils/decodeJWT";
-
-const app = express();
-
-app.use(cors());
-app.use(logger("dev"));
-app.use(helmet());
-app.use(cookieParser());
 
 const server = new GraphQLServer({
   schema,
