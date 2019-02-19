@@ -5,5 +5,5 @@ type SaveCommentResponse {
 }
 
 type Mutation {
-  SaveComment(poemId: Int!, parentId: Int, text: String): SaveCommentResponse!
+  SaveComment(poemId: Int!, parentId: Int, text: String!): SaveCommentResponse!
 }

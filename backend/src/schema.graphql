@@ -5,7 +5,7 @@ type DeleteCommentResponse {
 
 type Mutation {
   DeleteComment(commentId: Int!): DeleteCommentResponse!
-  SaveComment(poemId: Int!, parentId: Int, text: String): SaveCommentResponse!
+  SaveComment(poemId: Int!, parentId: Int, text: String!): SaveCommentResponse!
   UpdateComment(commentId: Int!, text: String): UpdateCommentResponse!
   LikeComment(commentId: Int!): UpdateCommentResponse!
   DeletePoem(poemId: Int!): DeletePoemResponse!

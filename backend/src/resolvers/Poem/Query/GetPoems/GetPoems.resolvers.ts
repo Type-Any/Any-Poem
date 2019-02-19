@@ -5,7 +5,7 @@ const resolvers = {
   Query: {
     GetPoems: async (_: any, args: GetPoemsQueryArgs, ctx: any): Promise<GetPoemsResponse> => {
       try {
-        const poems = await Poem.find({ skip: args.skip, take: args.take });
+        const poems = await Poem.find({ skip: args.skip, take: args.take, order: { id: "DESC" } });
         if (poems) {
           return {
             error: null,

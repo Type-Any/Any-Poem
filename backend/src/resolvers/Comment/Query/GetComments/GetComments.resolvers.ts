@@ -5,7 +5,12 @@ const resolvers = {
   Query: {
     GetComments: async (_: any, args: GetCommentsQueryArgs, ctx: any): Promise<GetCommentsResponse> => {
       try {
-        const comments = await Comment.find({ where: { poem: { id: args.poemId } }, skip: args.skip, take: args.take });
+        const comments = await Comment.find({
+          where: { poem: { id: args.poemId } },
+          skip: args.skip,
+          take: args.take,
+          order: { id: "DESC" }
+        });
         if (comments) {
           return {
             comments,

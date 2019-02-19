@@ -20,11 +20,11 @@ const resolvers = {
           };
         }
       } catch (error) {
-        return {
-          error: error.message,
-          ok: false,
-          poem: null
-        };
+	      return { 
+		      error: error.message,
+		      ok: false,
+		      poem: null
+	      };
       }
     }
   }

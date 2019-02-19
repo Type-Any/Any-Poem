@@ -9,13 +9,28 @@ import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import decodeJWT from "./utils/decodeJWT";
+import { ContextParameters } from "graphql-yoga/dist/types";
+
+const parseReqeustAuthorization = (request: ContextParameters) => {
+  const authroization = request.request.get("Authorization");
+  if (authroization) {
+    const splitedAuth = authroization.split(" ");
+    if (splitedAuth[0] === "X-JWT") {
+      return splitedAuth[1];
+    } else {
+      return "";
+    }
+  } else {
+    return "";
+  }
+};
 
 const server = new GraphQLServer({
   schema,
-  context: async (request: any) => {
+  context: async (request: ContextParameters) => {
     let userId;
 
-    const token = request.request.get("X-JWT") || "";
+    const token = parseReqeustAuthorization(request) || request.request.cookies["X-JWT"] || "";
     if (token) {
       userId = await decodeJWT(token);
     }

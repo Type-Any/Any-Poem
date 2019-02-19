@@ -41,6 +41,7 @@
     "predev": "yarn types",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/resolvers/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
+    "copytypes": "cp ./src/types/graph.d.ts ../frontend/types",
     "prebuild": "rm -rf dist",
     "build": "tsc",
     "postbuild": "cp ./src/*.graphql ./dist/src/",
