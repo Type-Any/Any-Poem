@@ -31,6 +31,7 @@ class Login extends React.Component<IPropsWithApollo & {}> {
 
     return initialProps;
   }
+
   state = {
     email: "",
     password: ""
@@ -53,7 +54,7 @@ class Login extends React.Component<IPropsWithApollo & {}> {
     });
 
     if (data.EmailSignIn.ok) {
-      document.cookie = cookie.serialize("token", data.EmailSignIn.token, {
+      document.cookie = cookie.serialize("X-JWT", data.EmailSignIn.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
       // apolloClient 초기화를 위한 SSR routing

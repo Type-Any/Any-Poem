@@ -30,7 +30,6 @@ const create = (initCache: NormalizedCacheObject, token: string) => {
       authorization: token ? `X-JWT ${token}` : ""
     }
   }));
-
   const cache = new InMemoryCache().restore(initCache || {});
 
   const stateLink = withClientState({
