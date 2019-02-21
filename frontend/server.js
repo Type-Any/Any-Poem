@@ -36,6 +36,10 @@ app
       return app.render(req, res, "/poem", req.params);
     });
 
+    server.get("/write/:id", (req, res) => {
+      return app.render(req, res, "/write", req.params);
+    });
+
     server.get("*", (req, res) => {
       return handle(req, res);
     });

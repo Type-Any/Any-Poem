@@ -1,17 +1,21 @@
 import React from "react";
 import { ctxWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import { SAVE_POEM } from "./WriteQueries";
 import WritePresenter from "./WritePresenter";
-import { GET_POEMS } from "../poem/PoemQueries";
-import { GetPoemsResponse } from "../../types/graph";
+import { GET_POEM } from "../poem/PoemQueries";
+import { Poem } from "../../types/graph";
 
-interface IProps {}
+interface IProps {
+  id: string;
+}
 
 class WriteContainer extends React.Component<IProps> {
   static async getInitialProps(context: ctxWithApollo): Promise<{}> {
-    const initialProps = {};
+    const initialProps = {
+      id: context.query.id
+    };
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
 
@@ -31,45 +35,31 @@ class WriteContainer extends React.Component<IProps> {
   }
 
   render() {
+    const { id } = this.props;
+
     return (
-      <Mutation
-        mutation={SAVE_POEM}
-        update={(cache, { data: { SavePoem } }) => {
-          const poems: { GetPoems: GetPoemsResponse } | null = cache.readQuery({
-            query: GET_POEMS,
-            variables: { skip: 0, take: 10 }
-          });
-
-          console.log(SavePoem);
-          if (poems) {
-            const { GetPoems } = poems;
-
-            if (GetPoems.ok) {
-              let newPoems;
-              if (GetPoems.poems) {
-                newPoems = {
-                  ...poems.GetPoems,
-                  poems: [SavePoem.poem, ...GetPoems.poems]
-                };
-              } else {
-                newPoems = SavePoem;
-              }
-
-              cache.writeQuery({
-                query: GET_POEMS,
-                variables: { skip: 0, take: 10 },
-                data: { GetPoems: newPoems }
-              });
-            } else {
-              console.log(GetPoems.error);
-            }
-          } else {
-            console.log("Poems cache 업데이트 에러");
-          }
-        }}
-      >
+      <Mutation mutation={SAVE_POEM}>
         {SavePoem => {
-          return <WritePresenter save={SavePoem} />;
+          return (
+            <Query skip={id ? false : true} query={GET_POEM} variables={{ poemId: parseInt(id, 10) }}>
+              {({ loading, error, data }) => {
+                if (loading) {
+                  return <div>Loading...</div>;
+                }
+                if (error) {
+                  return <div>Error :(</div>;
+                }
+
+                if (data && data.GetPoem.ok) {
+                  const poem: Poem = data.GetPoem.poem;
+
+                  return <WritePresenter poem={poem} save={SavePoem} />;
+                } else {
+                  return <WritePresenter save={SavePoem} />;
+                }
+              }}
+            </Query>
+          );
         }}
       </Mutation>
     );

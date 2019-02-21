@@ -1,15 +1,29 @@
 import React from "react";
 import useHandleInput from "../../utils/useHandleInput";
 import redirect from "../../utils/redirect";
+import { Poem } from "../../types/graph";
 
 interface IProps {
+  poem?: Poem;
   save: ({ variables: {} }) => void;
 }
 
+interface IUseHandleInput<T> {
+  value: T;
+  onChange: (value: T) => void;
+}
+
 const WritePresenter = (props: IProps) => {
-  const { save } = props;
-  const title = useHandleInput("");
-  const text = useHandleInput("");
+  const { poem, save } = props;
+  let title: IUseHandleInput<any>, text: IUseHandleInput<any>;
+
+  if (poem) {
+    title = useHandleInput(poem.title);
+    text = useHandleInput(poem.text);
+  } else {
+    title = useHandleInput("");
+    text = useHandleInput("");
+  }
 
   return (
     <div>
