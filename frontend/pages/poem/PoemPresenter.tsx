@@ -2,6 +2,7 @@ import React from "react";
 import { Poem } from "../../types/graph";
 import Comments from "../../components/Comments";
 import Link from "next/link";
+import { encodeId } from "../../utils/hashId";
 
 interface IProps {
   poem: Poem;
@@ -18,7 +19,7 @@ const PoemPresenter = (props: IProps) => {
       <div>작가: {poem.poet.penName}</div>
       <div>{poem.text}</div>
       <div>
-        <Link href={`/write?id=${poem.id}`} as={`/write/${poem.id}`}>
+        <Link href={`/write?id=${encodeId(poem.id)}`} as={`/write/${encodeId(poem.id)}`}>
           <a>수정</a>
         </Link>
         <button>삭제</button>

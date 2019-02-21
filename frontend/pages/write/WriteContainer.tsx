@@ -6,15 +6,16 @@ import { SAVE_POEM } from "./WriteQueries";
 import WritePresenter from "./WritePresenter";
 import { GET_POEM } from "../poem/PoemQueries";
 import { Poem } from "../../types/graph";
+import { decodeId } from "../../utils/hashId";
 
 interface IProps {
-  id: string;
+  id: number;
 }
 
 class WriteContainer extends React.Component<IProps> {
   static async getInitialProps(context: ctxWithApollo): Promise<{}> {
     const initialProps = {
-      id: context.query.id
+      id: decodeId(context.query.id)[0]
     };
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
@@ -41,7 +42,7 @@ class WriteContainer extends React.Component<IProps> {
       <Mutation mutation={SAVE_POEM}>
         {SavePoem => {
           return (
-            <Query skip={id ? false : true} query={GET_POEM} variables={{ poemId: parseInt(id, 10) }}>
+            <Query skip={id ? false : true} query={GET_POEM} variables={{ poemId: id }}>
               {({ loading, error, data }) => {
                 if (loading) {
                   return <div>Loading...</div>;
