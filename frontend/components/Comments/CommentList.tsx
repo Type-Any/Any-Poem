@@ -2,32 +2,46 @@ import React, { useState } from "react";
 import { Comment, GetCommentsResponse } from "../../types/graph";
 import useHandleInput from "../../utils/useHandleInput";
 import { Mutation } from "react-apollo";
-import { SAVE_COMMENT, GET_COMMENTS, FRAGMENT_COMMENT } from "./CommentsQueries";
+import { SAVE_COMMENT, GET_COMMENTS, FRAGMENT_COMMENT, UPDATE_COMMENT } from "./CommentsQueries";
 
-interface IProps {
+interface ICommentListProps {
   poemId: number;
   comments: Comment[];
 }
 
-const Comments = ({ poemId, comments, children }) => {
+interface ICommentsProps {
+  poemId: number;
+  comments: Comment[];
+  children?: boolean;
+}
+
+interface ICommentEachProps {
+  poemId: number;
+  comment: Comment;
+  children: boolean | undefined;
+}
+
+const Comments = ({ poemId, comments, children }: ICommentsProps) => {
   return (
     <div>
       {comments.map(comment => (
-        <Comment1 key={comment.id} poemId={poemId} comment={comment} children={children} />
+        <CommentEach key={comment.id} poemId={poemId} comment={comment} children={children} />
       ))}
     </div>
   );
 };
 
-const Comment1 = ({ poemId, comment, children }) => {
-  const recomment = useHandleInput("");
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
+const CommentEach = ({ poemId, comment, children }: ICommentEachProps) => {
+  const reComment = useHandleInput("");
+  const updateComment = useHandleInput(comment.text);
+  const [isReCommentOpen, setIsReCommentOpen] = useState(false);
+  const [isUpdateCommentOpen, setIsUpdateCommentOpen] = useState(false);
 
   if (!comment.parent) {
     return (
       <Mutation
         mutation={SAVE_COMMENT}
-        variables={{ poemId, parentId: comment.id, text: recomment.value }}
+        variables={{ poemId, parentId: comment.id, text: reComment.value }}
         update={(cache, { data: { SaveComment } }) => {
           const comments: { GetComments: GetCommentsResponse } | null = cache.readQuery({
             query: GET_COMMENTS,
@@ -54,14 +68,14 @@ const Comment1 = ({ poemId, comment, children }) => {
                 data: { GetComments: newComments }
               });
 
-              const parentComment = cache.readFragment({
+              const parentComment: Comment | null = cache.readFragment({
                 id: `Comment:${comment.id}`,
                 fragment: FRAGMENT_COMMENT
               });
 
               if (parentComment) {
                 let newParentComment;
-                if (parentComment.children.length > 0) {
+                if (parentComment.children) {
                   newParentComment = {
                     ...parentComment,
                     children: [...parentComment.children, SaveComment.comment]
@@ -92,21 +106,49 @@ const Comment1 = ({ poemId, comment, children }) => {
         {SaveComment => {
           return (
             <div>
-              <div key={comment.id} style={{ display: "flex", flexDirection: "row" }}>
-                {children && <span>▶️</span>}
-                <div>{comment.text}</div>
-                <div>{comment.parent && comment.parent.id}</div>
-                {!children && <button onClick={() => setIsCommentOpen(true)}>대댓글</button>}
-              </div>
-              {isCommentOpen && (
+              {isUpdateCommentOpen ? (
+                <Mutation
+                  mutation={UPDATE_COMMENT}
+                  variables={{
+                    commentId: comment.id,
+                    text: updateComment.value
+                  }}
+                >
+                  {UpdateComment => {
+                    return (
+                      <div>
+                        <textarea {...updateComment} />
+                        <button onClick={() => setIsUpdateCommentOpen(false)}>취소</button>
+                        <button
+                          onClick={() => {
+                            UpdateComment();
+                            setIsUpdateCommentOpen(false);
+                          }}
+                        >
+                          저장
+                        </button>
+                      </div>
+                    );
+                  }}
+                </Mutation>
+              ) : (
+                <div key={comment.id} style={{ display: "flex", flexDirection: "row" }}>
+                  {children && <span>▶️</span>}
+                  <div>{comment.text}</div>
+                  <div>{comment.parent && comment.parent.id}</div>
+                  <button onClick={() => setIsUpdateCommentOpen(true)}>수정</button>
+                  {!children && <button onClick={() => setIsReCommentOpen(true)}>대댓글</button>}
+                </div>
+              )}
+              {isReCommentOpen && (
                 <div>
-                  <textarea {...recomment} />
-                  <button onClick={() => setIsCommentOpen(false)}>취소</button>
+                  <textarea {...reComment} />
+                  <button onClick={() => setIsReCommentOpen(false)}>취소</button>
                   <button
                     onClick={() => {
                       SaveComment();
-                      recomment.onChange({ currentTarget: { value: "" } });
-                      setIsCommentOpen(false);
+                      reComment.onChange({ currentTarget: { value: "" } });
+                      setIsReCommentOpen(false);
                     }}
                   >
                     저장
@@ -125,7 +167,7 @@ const Comment1 = ({ poemId, comment, children }) => {
   }
 };
 
-const CommentList = (props: IProps) => {
+const CommentList = (props: ICommentListProps) => {
   const { poemId, comments } = props;
   if (comments.length > 0) {
     return <Comments poemId={poemId} comments={comments} />;

@@ -61,3 +61,27 @@ export const SAVE_COMMENT = gql`
   }
   ${FRAGMENT_COMMENT}
 `;
+
+export const UPDATE_COMMENT = gql`
+  mutation updateComment($commentId: Int!, $text: String) {
+    UpdateComment(commentId: $commentId, text: $text) {
+      ok
+      error
+      comment {
+        ...FragmentComment
+      }
+    }
+  }
+  ${FRAGMENT_COMMENT}
+`;
+
+export const LIKE_COMMENT = gql`
+  mutation likeComment($commentId: Int!) {
+    ok
+    error
+    comment {
+      ...FragmentComment
+    }
+  }
+  ${FRAGMENT_COMMENT}
+`;
