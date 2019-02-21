@@ -35,12 +35,22 @@ const WritePresenter = (props: IProps) => {
       </div>
       <button
         onClick={() => {
-          save({
-            variables: {
-              title: title.value,
-              text: text.value
-            }
-          });
+          save(
+            poem
+              ? {
+                  variables: {
+                    poemId: poem.id,
+                    title: title.value,
+                    text: text.value
+                  }
+                }
+              : {
+                  variables: {
+                    title: title.value,
+                    text: text.value
+                  }
+                }
+          );
           redirect({}, "/");
         }}
       >

@@ -1,22 +1,31 @@
 import gql from "graphql-tag";
 
+export const FRAGMENT_POEM = gql`
+  fragment FragmentPoem on Poem {
+    id
+    title
+    text
+    poet {
+      id
+      fullName
+      penName
+    }
+    createdAt
+    updatedAt
+  }
+`;
+
 export const GET_POEMS = gql`
   query getPoems($skip: Int!, $take: Int!) {
     GetPoems(skip: $skip, take: $take) {
       ok
       error
       poems {
-        id
-        title
-        text
-        poet {
-          id
-          fullName
-          penName
-        }
+        ...FragmentPoem
       }
     }
   }
+  ${FRAGMENT_POEM}
 `;
 
 export const GET_POEM = gql`
@@ -25,15 +34,9 @@ export const GET_POEM = gql`
       ok
       error
       poem {
-        id
-        title
-        text
-        poet {
-          id
-          fullName
-          penName
-        }
+        ...FragmentPoem
       }
     }
   }
+  ${FRAGMENT_POEM}
 `;
