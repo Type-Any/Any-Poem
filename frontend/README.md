@@ -2,20 +2,26 @@
 
 ## Tech Stack
 
--   Full Typed Typescript
--   Next.js
--   GraphQL (Apollo Client)
--   Styled-components
--   JWT authorization (cookie, headers parsing)
+- Full Typed Typescript
+- Next.js
+- GraphQL (Apollo Client)
+- Styled-components
+- JWT authorization (cookie, headers parsing)
 
 ## 기능 (Features)
 
--   [ ] Main Page
--   [ ] Sign Page (Sign in, Sign up, 3rd party Auth)
--   [ ] My Profile Page
--   [ ] Write Page
--   [ ] Content Detail Page
+- [x] Main Page
+- [x] Sign Page (Sign in, Sign up, 3rd party Auth)
+- [x] Login Page
+- [x] My Profile Page
+- [x] Write Poem, Comment, Re-Comment
+- [x] Poem Detail Page
+- [x] Update Poem
 
 ## Notes
 
 ## To-Dos
+
+- [ ] Update Comment
+- [ ] Delete Poem, Comment
+- [ ] Layout, Markups
