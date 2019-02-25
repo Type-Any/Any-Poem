@@ -33,6 +33,11 @@ export const FRAGMENT_COMMENT = gql`
       createdAt
       updatedAt
     }
+    likes {
+      id
+      fullName
+      penName
+    }
   }
 `;
 
@@ -77,10 +82,12 @@ export const UPDATE_COMMENT = gql`
 
 export const LIKE_COMMENT = gql`
   mutation likeComment($commentId: Int!) {
-    ok
-    error
-    comment {
-      ...FragmentComment
+    LikeComment(commentId: $commentId) {
+      ok
+      error
+      comment {
+        ...FragmentComment
+      }
     }
   }
   ${FRAGMENT_COMMENT}

@@ -3,6 +3,7 @@ import { Poem } from "../../types/graph";
 import Comments from "../../components/Comments";
 import Link from "next/link";
 import { encodeId } from "../../utils/hashId";
+import LikePoem from "../../components/LikePoem";
 
 interface IProps {
   poem: Poem;
@@ -17,6 +18,9 @@ const PoemPresenter = (props: IProps) => {
         <div>{poem.title}</div>
       </div>
       <div>작가: {poem.poet.penName}</div>
+      <div>
+        <LikePoem poem={poem} />
+      </div>
       <div>{poem.text}</div>
       <div>
         <Link href={`/write?id=${encodeId(poem.id)}`} as={`/write/${encodeId(poem.id)}`}>

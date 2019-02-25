@@ -10,6 +10,11 @@ export const FRAGMENT_POEM = gql`
       fullName
       penName
     }
+    likes {
+      id
+      fullName
+      penName
+    }
     createdAt
     updatedAt
   }

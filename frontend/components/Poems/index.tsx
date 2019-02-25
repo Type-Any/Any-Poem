@@ -37,8 +37,10 @@ const Container = styled.ul`
   justify-content: flex-start;
 `;
 
-const PoemCard = styled.li`
-  margin: 10px;
+const PoemCard = styled.div`
+  width: 200px;
+  border: 1px solid #eee;
+  font-size: 1rem;
 `;
 
 export default Poem;
