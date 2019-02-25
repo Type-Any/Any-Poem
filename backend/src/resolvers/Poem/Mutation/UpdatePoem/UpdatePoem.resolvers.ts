@@ -21,7 +21,12 @@ const resolvers = {
           const user = await User.findOne({ id: ctx.userId });
 
           if (user) {
-            poem.likes = [...poem.likes, user];
+            const index = poem.likes.findIndex(liker => liker.id === user.id);
+            if (index > -1) {
+              poem.likes.splice(index, 1);
+            } else {
+              poem.likes = [...poem.likes, user];
+            }
 
             await poem.save();
           } else {

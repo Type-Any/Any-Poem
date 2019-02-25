@@ -20,8 +20,13 @@ const resolvers = {
           }
 
           if (comment) {
-            comment.likes = [...comment.likes, user];
-            comment.save();
+            const index = comment.likes.findIndex(liker => liker.id === user.id);
+            if (index > -1) {
+              comment.likes.splice(index, 1);
+            } else {
+              comment.likes = [...comment.likes, user];
+            }
+            await comment.save();
 
             return {
               comment,
@@ -55,10 +60,18 @@ const resolvers = {
             };
           }
 
-          const comment = await Comment.findOne({ id: args.commentId });
+          const comment = await Comment.findOne({ where: { id: args.commentId }, relations: ["commenter"] });
 
           if (comment) {
-            comment.text = args.text;
+            if (comment.commenter.id !== ctx.userId) {
+              return {
+                comment: null,
+                error: "Not your comment",
+                ok: false
+              };
+            } else {
+              comment.text = args.text;
+            }
             await comment.save();
 
             return {
