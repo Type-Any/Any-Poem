@@ -17,11 +17,12 @@
 - [x] Write Poem, Comment, Re-Comment
 - [x] Poem Detail Page
 - [x] Update Poem
+- [x] Update Comment
+- [x] Upvote Poem, Upvote Comment
 
 ## Notes
 
 ## To-Dos
 
-- [ ] Update Comment
 - [ ] Delete Poem, Comment
 - [ ] Layout, Markups
