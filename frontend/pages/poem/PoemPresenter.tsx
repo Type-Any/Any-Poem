@@ -1,9 +1,10 @@
-import React from "react";
-import { Poem } from "../../types/graph";
-import Comments from "../../components/Comments";
 import Link from "next/link";
-import { encodeId } from "../../utils/hashId";
+import React from "react";
+import Comments from "../../components/Comments";
 import LikePoem from "../../components/LikePoem";
+import { Poem } from "../../types/graph";
+import { encodeId } from "../../utils/hashId";
+import DeletePoem from "../../components/DeletePoem";
 
 interface IProps {
   poem: Poem;
@@ -26,7 +27,7 @@ const PoemPresenter = (props: IProps) => {
         <Link href={`/write?id=${encodeId(poem.id)}`} as={`/write/${encodeId(poem.id)}`}>
           <a>수정</a>
         </Link>
-        <button>삭제</button>
+        <DeletePoem poem={poem} />
       </div>
       <Comments poemId={poem.id} />
     </div>

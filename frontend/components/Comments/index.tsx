@@ -85,7 +85,7 @@ const Comments = (props: IProps) => {
             if (comments) {
               return (
                 <div>
-                  <CommentList poemId={poemId} comments={comments} />;
+                  <CommentList poemId={poemId} comments={comments} />
                 </div>
               );
             } else {

@@ -4,6 +4,7 @@ import useHandleInput from "../../utils/useHandleInput";
 import { Mutation } from "react-apollo";
 import { SAVE_COMMENT, GET_COMMENTS, FRAGMENT_COMMENT, UPDATE_COMMENT } from "./CommentsQueries";
 import LikeComment from "../LikeComment";
+import DeleteComment from "../DeleteComment";
 
 interface ICommentListProps {
   poemId: number;
@@ -139,6 +140,7 @@ const CommentEach = ({ poemId, comment, children }: ICommentEachProps) => {
                   <div>{comment.parent && comment.parent.id}</div>
                   <LikeComment comment={comment} />
                   <button onClick={() => setIsUpdateCommentOpen(true)}>수정</button>
+                  <DeleteComment comment={comment} />
                   {!children && <button onClick={() => setIsReCommentOpen(true)}>대댓글</button>}
                 </div>
               )}
