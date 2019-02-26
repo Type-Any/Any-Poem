@@ -10,9 +10,12 @@
 ## 기능 (Features)
 
 - [x] 회원가입 (Email), 로그인, 프로필 조회
-- [ ] 시, 댓글 작성
-- [ ] 공감 버튼
-- [ ] Following / Followers
+- [x] 시, 댓글 작성
+- [x] 공감 버튼
+- [x] Following / Followers
+- [x] 모델(Entity) 정의
+- [x] 모델(Entity) method 추가
+- [x] graphQL type, resolver 추가
 
 ## Notes
 
@@ -20,6 +23,4 @@
 
 ## To-Dos
 
-- [x] 모델(Entity) 정의
-- [ ] 모델(Entity) method 추가
-- [ ] graphQL type, resolver 추가
+- [ ] Pagination

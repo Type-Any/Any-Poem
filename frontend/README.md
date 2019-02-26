@@ -19,10 +19,10 @@
 - [x] Update Poem
 - [x] Update Comment
 - [x] Upvote Poem, Upvote Comment
+- [x] Delete Poem, Comment
 
 ## Notes
 
 ## To-Dos
 
-- [ ] Delete Poem, Comment
 - [ ] Layout, Markups
