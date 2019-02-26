@@ -21,10 +21,10 @@ class Comment extends BaseEntity {
   @ManyToOne(type => User, commenter => commenter.comments)
   commenter: User;
 
-  @ManyToOne(type => Poem, poem => poem.comments)
+  @ManyToOne(type => Poem, poem => poem.comments, { onDelete: "CASCADE" })
   poem: Poem;
 
-  @ManyToOne(type => Comment, comment => comment.children, { nullable: true })
+  @ManyToOne(type => Comment, comment => comment.children, { nullable: true, onDelete: "CASCADE" })
   parent: Comment;
 
   @OneToMany(type => Comment, comment => comment.parent, { nullable: true })
