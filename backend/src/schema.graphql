@@ -38,7 +38,7 @@ type Query {
   GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!
   GetMyPoems(skip: Int!, take: Int!): GetMyPoemsResponse!
   GetPoem(poemId: Int!): GetPoemResponse!
-  GetPoems(skip: Int!, take: Int!): GetPoemsResponse!
+  GetPoems(skip: Int!, take: Int!, search: String): GetPoemsResponse!
   GetMyProfile: GetMyProfileResponse!
 }
 

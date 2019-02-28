@@ -5,5 +5,5 @@ type GetPoemsResponse {
 }
 
 type Query {
-  GetPoems(skip: Int!, take: Int!): GetPoemsResponse!
+  GetPoems(skip: Int!, take: Int!, search: String): GetPoemsResponse!
 }
