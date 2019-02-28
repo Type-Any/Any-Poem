@@ -1,31 +1,18 @@
 import Poem from "../../../../entities/Poem";
 import { GetPoemsQueryArgs, GetPoemsResponse } from "../../../../types/graph";
-import { Like } from "typeorm";
 
 const resolvers = {
   Query: {
     GetPoems: async (_: any, args: GetPoemsQueryArgs, ctx: any): Promise<GetPoemsResponse> => {
       try {
-        const poems = await Poem.find({
-          where: args.search
-            ? [
-                {
-                  title: Like(`%${args.search}%`)
-                },
-                {
-                  text: Like(`%${args.search}%`)
-                }
-              ]
-            : {},
-          relations: ["poet"],
-          skip: args.skip,
-          take: args.take,
-          order: { id: "DESC" }
-        });
-
-        // const poems = await Poem.createQueryBuilder("poem")
-        //   .where("poem.poet.penName = :penName", { penName: 2 })
-        //   .getMany();
+        const poems = await Poem.createQueryBuilder("poem")
+          .leftJoinAndSelect("poem.poet", "poet")
+          .where("poem.title Like :title OR poem.text Like :text", {
+            title: `%${args.search}%`,
+            text: `%${args.search}%`
+          })
+          .orWhere("poet.penName Like :penName", { penName: `%${args.search}%` })
+          .getMany();
 
         if (poems) {
           return {
