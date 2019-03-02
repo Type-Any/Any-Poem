@@ -15,6 +15,7 @@ export default class MyDocument extends Document<IProps> {
         <Head>
           <meta name="author" content={"type-any"} />
           <link rel="shortcut icon" href="static/favicon.ico" />
+          <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo|Noto+Sans" rel="stylesheet" />
           {this.props.styleTags}
         </Head>
         <body>

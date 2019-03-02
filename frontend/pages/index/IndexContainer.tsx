@@ -1,8 +1,8 @@
 import { NextContext } from "next";
 import React from "react";
 import { Query } from "react-apollo";
-import IndexPresenter from "./IndexPresenter";
 import { GET_POEMS } from "../poem/PoemQueries";
+import IndexPresenter from "./IndexPresenter";
 
 interface IProps {
   from: string;

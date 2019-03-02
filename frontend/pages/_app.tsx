@@ -3,7 +3,6 @@ import Head from "next/head";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { createGlobalStyle } from "styled-components";
-import Nav from "../components/Nav";
 import withApollo from "../lib/withApollo";
 import { AppPropsWithApollo } from "../types/types";
 
@@ -24,7 +23,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #__next {
-    width: 100%;
+    min-width: 1024pt;
+    margin: 0 auto;
   }
 `;
 
@@ -38,7 +38,6 @@ class MyApp extends App<AppPropsWithApollo> {
         </Head>
         <GlobalStyle />
         <ApolloProvider client={apolloClient}>
-          <Nav />
           <Component {...pageProps} />
         </ApolloProvider>
       </Container>
