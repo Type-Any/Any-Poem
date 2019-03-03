@@ -11,7 +11,11 @@ const Nav = (props: WithRouterProps) => {
     <Container>
       <ButtonList>
         <li><Link href="/"><a><FaSearch /></a></Link></li>
-        <li><button type="button"><IoIosMenu /></button></li>
+        <li>
+          <button type="button">
+            <IoIosMenu />
+          </button>
+        </li>
       </ButtonList>
       <LinkList>
         <Li>
@@ -62,33 +66,30 @@ const LinkList = styled.ul`
   list-style: none;
   width: 130pt;
   height: 100%;
+  margin: 70pt 0 0;
+  padding: 0;
 `;
 
 const Li = styled.li`
-  width: 70px;
-  height: 50px;
   list-style-type: none;
   padding: 0;
-  border-right: 1px solid #e6eaea;
+  text-align: left;
 `;
 
 const A = styled.a<{ active?: boolean }>`
   width: 100%;
   height: 50px;
-  font-family: sans-serif;
-  color: ${props => (props.active ? "#ffffff" : "#444444")};
-  background-color: ${props => (props.active ? "#444444" : "#ffffff")};
-  font-size: 11px;
-  font-weight: 500;
+  font-family: 'Noto Sans', sans-serif;
+  color: ${props => (props.active ? "rgb(71, 71, 71)" : "rgb(120, 120, 120)")};
+  font-size: 17px;
   text-decoration: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 
   &:hover {
-    background-color: ${props => (props.active ? "#ffffff" : "#444444")};
-    color: ${props => (props.active ? "#444444" : "#ffffff")};
+    color: ${props => (props.active ? "rgb(71, 71, 71)" : "rgb(120, 120, 120)")};
   }
 `;
 
