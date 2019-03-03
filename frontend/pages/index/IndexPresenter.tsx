@@ -347,6 +347,7 @@ const FloatBox = styled.ul`
   top: 50%;
   list-style: none;
   z-index: 200;
+  transform: translateY(-50%);
   > li {
     list-style: none;
     width: 100pt;
