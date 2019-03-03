@@ -1,15 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import { FaEdit, FaSearch } from "react-icons/fa";
 import styled from "styled-components";
-import Poems from "../../components/Poems";
-import { Poem as PoemAsProps } from "../../types/graph";
+import Nav from "../../components/Nav";
 
-interface IProps {
-  from: string;
-  poems: PoemAsProps[];
-}
-
-export default ({ from, poems }: IProps) => (
+export default () => (
   <Container>
     <SubTitle>누구나 쓰는 시</SubTitle>
     <MainTitle>Any Poem</MainTitle>
@@ -51,7 +46,7 @@ export default ({ from, poems }: IProps) => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile />
+            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
             <Writer>Evan Jin 0</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -60,7 +55,7 @@ export default ({ from, poems }: IProps) => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile />
+            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
             <Writer>Evan Jin 1</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -69,7 +64,7 @@ export default ({ from, poems }: IProps) => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile />
+            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
             <Writer>Evan Jin 2</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -78,7 +73,7 @@ export default ({ from, poems }: IProps) => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile />
+            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
             <Writer>Evan Jin 3</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -90,11 +85,24 @@ export default ({ from, poems }: IProps) => (
       <CopyrightTitle>Any Poem</CopyrightTitle>
       <CopyrightText>Copyright 2019</CopyrightText>
     </CopyrightBox>
-    <p>Rendered from {from}</p>
-    <Link href={`/write`}>
-      <a>시쓰기</a>
-    </Link>
-    <Poems poems={poems} />
+    <FloatBox>
+      <li>
+        <Link href={`/write`}>
+          <a>
+            <FaEdit />
+            <p>시 작성</p>
+          </a>
+        </Link>
+      </li>
+      <li>
+        <Link href={`/write`}>
+          <a>
+            시작
+          </a>
+        </Link>
+      </li>
+    </FloatBox>
+    <Nav />
   </Container>
 );
 
@@ -267,23 +275,33 @@ const Profile = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   margin:0 0 12pt;
-  &:after {
-    z-index: -1;
-    position: absolute;
-    content: '';
-    display: block;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(67, 172, 239, 0.65);
-    border-radius: 50%;
-    opacity: 0;
-    transition: all 0.3s;
-  }
-  &:hover:after {
+  &:hover span {
     z-index: 10;
     opacity: 1;
+  }
+`;
+
+const HoverBox = styled.span`
+  z-index: -1;
+  position: absolute;
+  content: '';
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(67, 172, 239, 0.65);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s;
+  svg {
+    width: 39pt;
+    height: 41pt;
+    color: #fff;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
   }
 `;
 
@@ -319,4 +337,44 @@ const CopyrightText = styled.p`
   color: rgb(165, 165, 165);
   font-size: 13pt;
   margin: 0;
+`;
+
+const FloatBox = styled.ul`
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  left: 49pt;
+  top: 50%;
+  list-style: none;
+  z-index: 200;
+  > li {
+    list-style: none;
+    width: 100pt;
+    height: 100pt;
+    background-color: rgb(36, 36, 36);
+    border-radius: 50%;
+    &:first-child {
+      margin-bottom: 19pt;
+      svg {
+        margin-top: 24.2pt;
+        width: 16.2pt;
+        height: 19.6pt;
+      }
+      p {
+        margin-top: 3.3pt;
+      }
+    }
+    &:nth-child(2) {
+      line-height: 100pt;
+    }
+  }
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 16pt;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+  }
 `;
