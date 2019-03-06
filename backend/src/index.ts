@@ -13,7 +13,7 @@ import decodeJWT from "./utils/decodeJWT";
 const server = new GraphQLServer({
   schema,
   context: async (request: any) => {
-    let userId;
+    let userId: string | undefined;
 
     const token = request.request.get("X-JWT") || "";
     if (token) {
