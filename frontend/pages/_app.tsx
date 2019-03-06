@@ -5,6 +5,8 @@ import { ApolloProvider } from "react-apollo";
 import { createGlobalStyle } from "styled-components";
 import withApollo from "../lib/withApollo";
 import { AppPropsWithApollo } from "../types/types";
+import Nav from "../components/Nav";
+import styled from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -23,8 +25,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #__next {
-    min-width: 1024pt;
-    margin: 0 auto;
+		min-width: 1024pt;
+		width: 100%;
+    margin: 0;
   }
 `;
 
@@ -38,11 +41,19 @@ class MyApp extends App<AppPropsWithApollo> {
         </Head>
         <GlobalStyle />
         <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
+          <Layout>
+            <Nav />
+            <Component {...pageProps} />
+          </Layout>
         </ApolloProvider>
       </Container>
     );
   }
 }
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default withApollo(MyApp);

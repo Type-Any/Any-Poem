@@ -1,49 +1,59 @@
 import Link from "next/link";
 import { withRouter, WithRouterProps } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import styled from "styled-components";
 
 const Nav = (props: WithRouterProps) => {
   const { router } = props;
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   return (
     <Container>
       <ButtonList>
-        <li><Link href="/"><a><FaSearch /></a></Link></li>
         <li>
-          <button type="button">
+          <Link href="/">
+            <a>
+              <FaSearch />
+            </a>
+          </Link>
+        </li>
+        <li>
+          <button type="button" onClick={() => setMenuOpen(!isMenuOpen)}>
             <IoIosMenu />
           </button>
         </li>
       </ButtonList>
-      <LinkList>
-        <Li>
-          <Link href="/">
-            <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
-          </Link>
-        </Li>
-        <Li>
-          <Link href="/poem">
-            <A>모든 시</A>
-          </Link>
-        </Li>
-        <Li>
-          <Link href="/">
-            <A>오늘의 추천 시</A>
-          </Link>
-        </Li>
-        <Li>
-          <Link href="/signup">
-            <A>회원가입</A>
-          </Link>
-        </Li>
-        <Li>
-          <Link href="/login">
-            <A>로그인</A>
-          </Link>
-        </Li>
-      </LinkList>
+      {isMenuOpen ? (
+        <LinkList>
+          <Li>
+            <Link href="/">
+              <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/poem">
+              <A>모든 시</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/">
+              <A>오늘의 추천 시</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/signup">
+              <A>회원가입</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/login">
+              <A>로그인</A>
+            </Link>
+          </Li>
+        </LinkList>
+      ) : null}
     </Container>
   );
 };
@@ -54,8 +64,7 @@ const Container = styled.div`
   bottom: 0;
   margin: 0;
   padding: 0;
-  height: 100%;
-  position: fixed;
+  position: relative;
   background-color: rgb(248, 248, 248);
   z-index: 100;
 `;
@@ -79,7 +88,7 @@ const Li = styled.li`
 const A = styled.a<{ active?: boolean }>`
   width: 100%;
   height: 50px;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: ${props => (props.active ? "rgb(71, 71, 71)" : "rgb(120, 120, 120)")};
   font-size: 17px;
   text-decoration: none;

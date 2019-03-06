@@ -2,42 +2,42 @@ import Link from "next/link";
 import React from "react";
 import { FaEdit, FaSearch } from "react-icons/fa";
 import styled from "styled-components";
-import Nav from "../../components/Nav";
 
 export default () => (
   <Container>
     <SubTitle>누구나 쓰는 시</SubTitle>
     <MainTitle>Any Poem</MainTitle>
-    <MainIntroText>우리는<br />누구나 쓸 수 있는 플랫폼을 지향합니다.<br />누구나 쓸 수 있고 누구나 읽을 수 있습니다.</MainIntroText>
-    <SubIntroText>지금, 시작해보세요.<br />많은 사람과 함께 해보세요.</SubIntroText>
+    <MainIntroText>
+      우리는
+      <br />
+      누구나 쓸 수 있는 플랫폼을 지향합니다.
+      <br />
+      누구나 쓸 수 있고 누구나 읽을 수 있습니다.
+    </MainIntroText>
+    <SubIntroText>
+      지금, 시작해보세요.
+      <br />
+      많은 사람과 함께 해보세요.
+    </SubIntroText>
     <GrayLine />
     <PickTitle>Today Pick</PickTitle>
     <PickLists>
       <li>
         <PoemTitle>일곱의 조각칼</PoemTitle>
         <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움,
-          가장 외로운 날엔
-          통화버튼이 보이지 않는다
-        </PoemContent>
+        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
         <LinkButton>읽기</LinkButton>
       </li>
       <li>
         <PoemTitle>일곱의 조각칼</PoemTitle>
         <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움,
-          가장 외로운 날엔
-          통화버튼이 보이지 않는다
-        </PoemContent>
+        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
         <LinkButton>읽기</LinkButton>
       </li>
       <li>
         <PoemTitle>일곱의 조각칼</PoemTitle>
         <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움,
-          가장 외로운 날엔
-          통화버튼이 보이지 않는다
-        </PoemContent>
+        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
         <LinkButton>읽기</LinkButton>
       </li>
     </PickLists>
@@ -46,7 +46,11 @@ export default () => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
+            <Profile>
+              <HoverBox>
+                <FaSearch />
+              </HoverBox>
+            </Profile>
             <Writer>Evan Jin 0</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -55,7 +59,11 @@ export default () => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
+            <Profile>
+              <HoverBox>
+                <FaSearch />
+              </HoverBox>
+            </Profile>
             <Writer>Evan Jin 1</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -64,7 +72,11 @@ export default () => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
+            <Profile>
+              <HoverBox>
+                <FaSearch />
+              </HoverBox>
+            </Profile>
             <Writer>Evan Jin 2</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -73,7 +85,11 @@ export default () => (
       <li>
         <Link href={`/`}>
           <a>
-            <Profile><HoverBox><FaSearch /></HoverBox></Profile>
+            <Profile>
+              <HoverBox>
+                <FaSearch />
+              </HoverBox>
+            </Profile>
             <Writer>Evan Jin 3</Writer>
             <CounterPoem>3 poems</CounterPoem>
           </a>
@@ -96,13 +112,10 @@ export default () => (
       </li>
       <li>
         <Link href={`/write`}>
-          <a>
-            시작
-          </a>
+          <a>시작</a>
         </Link>
       </li>
     </FloatBox>
-    <Nav />
   </Container>
 );
 
@@ -118,18 +131,18 @@ const SubTitle = styled.p`
   font-size: 15pt;
   margin-bottom: 18px;
   color: rgb(36, 36, 36);
-  font-family: 'Noto Sans', sans-serif;
-;`;
+  font-family: "Noto Sans", sans-serif;
+`;
 
 const MainTitle = styled.h1`
   margin-bottom: 176px;
   font-size: 35pt;
   color: rgb(36, 36, 36);
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
 `;
 
 const MainIntroText = styled.p`
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 24pt;
   line-height: 35pt;
   color: rgb(64, 64, 64);
@@ -137,7 +150,7 @@ const MainIntroText = styled.p`
 `;
 
 const SubIntroText = styled.p`
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 24pt;
   line-height: 35pt;
   color: rgb(64, 64, 64);
@@ -153,7 +166,7 @@ const GrayLine = styled.span`
 `;
 
 const PickTitle = styled.h2`
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   text-align: left;
   font-size: 31pt;
   color: rgb(36, 36, 36);
@@ -177,7 +190,7 @@ const PickLists = styled.ul`
       position: absolute;
       left: 0;
       top: 27pt;
-      content: '';
+      content: "";
       width: 2pt;
       background-color: rgb(236, 236, 236);
       height: 163pt;
@@ -200,20 +213,20 @@ const PickLists = styled.ul`
 
 const PoemTitle = styled.p`
   font-size: 21pt;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   margin-bottom: 5pt;
   color: rgb(36, 36, 36);
 `;
 
 const WriterName = styled.p`
   font-size: 13pt;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   margin-bottom: 15pt;
   color: rgb(142, 142, 142);
 `;
 
 const PoemContent = styled.div`
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: "Nanum Myeongjo", serif;
   font-size: 13pt;
   line-height: 23pt;
   color: rgb(88, 88, 88);
@@ -226,7 +239,7 @@ const LinkButton = styled.a`
   height: 36pt;
   line-height: 36pt;
   text-align: center;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-size: 13pt;
   color: #fff;
   background-color: rgb(35, 35, 35);
@@ -235,7 +248,7 @@ const LinkButton = styled.a`
 `;
 
 const FeaturedTitle = styled.h3`
- text-align: left;
+  text-align: left;
   margin-bottom: 31pt;
   font-size: 31pt;
   color: rgb(36, 36, 36);
@@ -268,13 +281,13 @@ const Profile = styled.div`
   position: relative;
   width: 100%;
   height: 138pt;
-  background-color: rgb(216, 216,216);
+  background-color: rgb(216, 216, 216);
   margin-bottom: 3pt;
   border-radius: 50%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin:0 0 12pt;
+  margin: 0 0 12pt;
   &:hover span {
     z-index: 10;
     opacity: 1;
@@ -284,7 +297,7 @@ const Profile = styled.div`
 const HoverBox = styled.span`
   z-index: -1;
   position: absolute;
-  content: '';
+  content: "";
   display: block;
   left: 0;
   right: 0;
