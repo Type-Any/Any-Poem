@@ -1,7 +1,6 @@
 import Router from "next/router";
-import { ctxWithApollo } from "../types/types";
 
-export default (context: ctxWithApollo | any, target: string) => {
+export default (context, target) => {
   if (context.res) {
     // server
     context.res.writeHead(303, { Location: target });

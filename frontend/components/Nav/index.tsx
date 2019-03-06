@@ -1,35 +1,26 @@
 import Link from "next/link";
-import { withRouter, WithRouterProps } from "next/router";
 import React from "react";
 import styled from "styled-components";
 
-const Nav = (props: WithRouterProps) => {
-  const { router } = props;
-  return (
-    <Container>
-      <Li>
-        <Link href="/">
-          <A active={router && router.route === "/" ? true : false}>Index</A>
-        </Link>
-      </Li>
-      <Li>
-        <Link href="/about">
-          <A>About</A>
-        </Link>
-      </Li>
-      <Li>
-        <Link href="/login">
-          <A>Log In</A>
-        </Link>
-      </Li>
-      <Li>
-        <Link href="/signup">
-          <A>Sign Up</A>
-        </Link>
-      </Li>
-    </Container>
-  );
-};
+const Nav = () => (
+  <Container>
+    <Li>
+      <Link href="/">
+        <A>Index</A>
+      </Link>
+    </Li>
+    <Li>
+      <Link href="/about">
+        <A>About</A>
+      </Link>
+    </Li>
+    <Li>
+      <Link href="/login">
+        <A>Login</A>
+      </Link>
+    </Li>
+  </Container>
+);
 
 const Container = styled.ul`
   margin: 0;
@@ -50,12 +41,11 @@ const Li = styled.li`
   border-right: 1px solid #e6eaea;
 `;
 
-const A = styled.a<{ active?: boolean }>`
+const A = styled.a`
   width: 100%;
   height: 50px;
   font-family: sans-serif;
-  color: ${props => (props.active ? "#ffffff" : "#444444")};
-  background-color: ${props => (props.active ? "#444444" : "#ffffff")};
+  color: #444444;
   font-size: 11px;
   font-weight: 500;
   text-decoration: none;
@@ -65,9 +55,9 @@ const A = styled.a<{ active?: boolean }>`
   justify-content: center;
 
   &:hover {
-    background-color: ${props => (props.active ? "#ffffff" : "#444444")};
-    color: ${props => (props.active ? "#444444" : "#ffffff")};
+    background-color: #444444;
+    color: #ffffff;
   }
 `;
 
-export default withRouter(Nav);
+export default Nav;

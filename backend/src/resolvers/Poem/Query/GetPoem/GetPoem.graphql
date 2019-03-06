@@ -1,9 +1,0 @@
-type GetPoemResponse {
-  ok: Boolean!
-  error: String
-  poem: Poem
-}
-
-type Query {
-  GetPoem(poemId: Int!): GetPoemResponse!
-}

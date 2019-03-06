@@ -1,22 +1,28 @@
-import { ApolloClient } from "apollo-client";
 import cookie from "cookie";
+import Router from "next/router";
 import React from "react";
 import { withApollo } from "react-apollo";
-import { ctxWithApollo } from "../../types/types";
+import { SET_ISLOGIN } from "../../lib/client/queries";
+import { ApolloClientType, NextContextWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
-import LogInPresenter from "./LogInPresenter";
-import { EMAIL_SIGN_IN } from "./LogInQueries";
+import LoginPresenter from "./LoginPresenter";
+import { EMAIL_SIGN_IN } from "./LoginQueries";
 
-interface IPropsWithApollo {
-  client: ApolloClient<any>;
+interface IProps extends ApolloClientType {
+  from: string;
+  email: string;
+  password: string;
+  handleChange: (e: any) => void;
+  handleSubmit: () => void;
 }
 
-class Login extends React.Component<IPropsWithApollo & {}> {
-  static async getInitialProps(context: ctxWithApollo): Promise<{}> {
+class Login extends React.Component<IProps> {
+  static async getInitialProps(context: NextContextWithApollo): Promise<{}> {
     const initialProps = {};
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
+
     if (context.req) {
       // server side
       if (loggedInUser && loggedInUser.ok) {
@@ -31,7 +37,6 @@ class Login extends React.Component<IPropsWithApollo & {}> {
 
     return initialProps;
   }
-
   state = {
     email: "",
     password: ""
@@ -54,11 +59,20 @@ class Login extends React.Component<IPropsWithApollo & {}> {
     });
 
     if (data.EmailSignIn.ok) {
-      document.cookie = cookie.serialize("X-JWT", data.EmailSignIn.token, {
+      document.cookie = cookie.serialize("token", data.EmailSignIn.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
-      // apolloClient 초기화를 위한 SSR routing
-      window.location.href = "/";
+
+      this.props.client.cache.reset().then(() =>
+        this.props.client
+          .mutate({
+            mutation: SET_ISLOGIN,
+            variables: { isLogin: true }
+          })
+          .then(() => {
+            Router.replace("/");
+          })
+      );
     } else {
       console.log(data.EmailSignIn.error);
     }
@@ -66,7 +80,7 @@ class Login extends React.Component<IPropsWithApollo & {}> {
 
   render() {
     return (
-      <LogInPresenter
+      <LoginPresenter
         {...this.props}
         email={this.state.email}
         password={this.state.password}

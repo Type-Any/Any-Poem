@@ -1,117 +1,18 @@
-type DeleteCommentResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  DeleteComment(commentId: Int!): DeleteCommentResponse!
-  SaveComment(poemId: Int!, parentId: Int, text: String!): SaveCommentResponse!
-  UpdateComment(commentId: Int!, text: String): UpdateCommentResponse!
-  LikeComment(commentId: Int!): UpdateCommentResponse!
-  DeletePoem(poemId: Int!): DeletePoemResponse!
-  SavePoem(title: String!, text: String!): SavePoemResponse!
-  UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!
-  LikePoem(poemId: Int!): UpdatePoemResponse!
-  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
-  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!
-}
-
-type SaveCommentResponse {
-  ok: Boolean!
-  error: String
-  comment: Comment
-}
-
-type UpdateCommentResponse {
-  ok: Boolean!
-  error: String
-  comment: Comment
-}
-
-type GetCommentsResponse {
-  ok: Boolean!
-  error: String
-  comments: [Comment]
-}
-
-type Query {
-  GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!
-  GetMyPoems(skip: Int!, take: Int!): GetMyPoemsResponse!
-  GetPoem(poemId: Int!): GetPoemResponse!
-  GetPoems(skip: Int!, take: Int!, search: String): GetPoemsResponse!
-  GetMyProfile: GetMyProfileResponse!
-}
-
-type Comment {
-  id: Int!
-  commenter: User!
-  poem: Poem!
-  parent: Comment
-  children: [Comment]
-  text: String!
-  likes: [User]
-  createdAt: String!
-  updatedAt: String!
-}
-
-type DeletePoemResponse {
-  ok: Boolean!
-  error: String
-}
-
-type SavePoemResponse {
-  ok: Boolean!
-  error: String
-  poem: Poem
-}
-
-type UpdatePoemResponse {
-  ok: Boolean!
-  error: String
-  poem: Poem
-}
-
-type GetMyPoemsResponse {
-  ok: Boolean!
-  error: String
-  poems: [Poem]
-}
-
-type GetPoemResponse {
-  ok: Boolean!
-  error: String
-  poem: Poem
-}
-
-type GetPoemsResponse {
-  ok: Boolean!
-  error: String
-  poems: [Poem]
-}
-
-type Poem {
-  id: Int!
-  poet: User!
-  title: String!
-  text: String!
-  comments: [Comment]
-  likes: [User]
-  isPublished: Boolean!
-  createdAt: String!
-  updatedAt: String!
-}
-
 type EmailSignInResponse {
   ok: Boolean!
   error: String
   token: String
 }
 
+type Mutation {
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
+  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!
+}
+
 type EmailSignUpResponse {
   ok: Boolean!
   error: String
   user: User
-  token: String
 }
 
 type GetMyProfileResponse {
@@ -120,18 +21,18 @@ type GetMyProfileResponse {
   profile: User
 }
 
+type Query {
+  GetMyProfile: GetMyProfileResponse!
+}
+
 type User {
   id: Int!
   email: String!
   password: String!
   fullName: String!
   penName: String!
-  bio: String
-  avatar: String
+  bio: String!
+  avatar: String!
   createdAt: String!
   updatedAt: String
-  poems: [Poem]
-  comments: [Comment]
-  followers: [User]
-  following: [User]
 }

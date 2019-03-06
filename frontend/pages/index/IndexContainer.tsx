@@ -1,8 +1,6 @@
 import { NextContext } from "next";
 import React from "react";
-import { Query } from "react-apollo";
 import IndexPresenter from "./IndexPresenter";
-import { GET_POEMS } from "../poem/PoemQueries";
 
 interface IProps {
   from: string;
@@ -13,6 +11,7 @@ export default class extends React.Component<IProps> {
     const initialProps = {
       from: "client"
     };
+
     if (req) {
       // server side
       initialProps.from = "server";
@@ -22,24 +21,6 @@ export default class extends React.Component<IProps> {
   }
 
   render() {
-    return (
-      <Query query={GET_POEMS} variables={{ skip: 0, take: 10 }}>
-        {({ loading, error, data }) => {
-          if (loading) {
-            return <div>Loading...</div>;
-          }
-          if (error) {
-            return <div>Error :(</div>;
-          }
-
-          if (data.GetPoems.ok) {
-            const poems = data.GetPoems.poems;
-            return <IndexPresenter {...this.props} poems={poems} />;
-          } else {
-            console.log("> indexContainer : 에러 발생");
-          }
-        }}
-      </Query>
-    );
+    return <IndexPresenter {...this.props} />;
   }
 }
