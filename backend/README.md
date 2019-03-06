@@ -21,7 +21,7 @@ $ yarn global add nodemon
 
 ```shell
 $ git clone https://github.com/Type-Any/Any-Poem.git
-$ cd Any-Poem
+$ cd Any-Poem/backend
 $ yarn install
 ```
 
@@ -43,37 +43,29 @@ DB_PASSWORD=anypoem
 
 ### Docker를 사용하는 경우
 
+0. 최신 버젼의 Docker 필요
+
 1. git clone
 
 ```shell
 $ git clone https://github.com/Type-Any/Any-Poem.git
-$ cd Any-Poem
+$ cd Any-Poem/backend
 ```
 
-2. Postgres DB 생성
-
-> 참고 : [Commands for Postgres DB initial setup](https://mattdamon108.github.io/post/backend/1/2019-02-25-Commands-for-Postgres-DB-setup/)
-
-3. `.env` 환경변수 설정 (`.env_dev` -> `.env`로 변경)
+2. `.env` 환경변수 설정 (`.env_dev` -> `.env`로 변경)
 
 ```
-JWT_SECRET_KEY=any-poem
+JWT_SECRET_KEY=any-poem-secret
 DB_NAME=anypoem
-DB_ENDPOINT=host.docker.internal
+DB_ENDPOINT=db
 DB_USERNAME=anypoem
 DB_PASSWORD=anypoem
 ```
 
-4. Docker build
+3. Docker 빌드 및 실행
 
 ```shell
-$ docker build -t any-poem .
-```
-
-5. Docker run
-
-```shell
-$ docker run -p 4000:4000 -d any-poem
+$ docker-compose up -d
 ```
 
 ## 기능 (Features)

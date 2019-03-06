@@ -1,0 +1,32 @@
+version: '2.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./docker/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=anypoem
+      - POSTGRES_USER=anypoem
+      - POSTGRES_PASSWORD=anypoem
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    healthcheck:
+      test: "pg_isready -h localhost -p 5432 -q -U anypoem"
+      interval: 3s
+      timeout: 1s
+      retries: 10
+
+  any-poem:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    volumes:
+      - ./src:/usr/src/app/src
