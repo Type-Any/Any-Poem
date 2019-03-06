@@ -1,8 +1,0 @@
-type DeletePoemResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  DeletePoem(poemId: Int!): DeletePoemResponse!
-}

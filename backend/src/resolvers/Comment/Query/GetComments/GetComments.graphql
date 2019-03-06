@@ -1,9 +1,0 @@
-type GetCommentsResponse {
-  ok: Boolean!
-  error: String
-  comments: [Comment]
-}
-
-type Query {
-  GetComments(poemId: Int!, skip: Int!, take: Int!): GetCommentsResponse!
-}

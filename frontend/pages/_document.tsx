@@ -1,5 +1,5 @@
 import Document, { Head, Main, NextDocumentContext, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import { createGlobalStyle, ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document<IProps> {
   static getInitialProps({ renderPage }: NextDocumentContext) {
@@ -18,6 +18,7 @@ export default class MyDocument extends Document<IProps> {
           {this.props.styleTags}
         </Head>
         <body>
+          <GlobalStyle />
           <Main />
           <NextScript />
         </body>
@@ -29,3 +30,24 @@ export default class MyDocument extends Document<IProps> {
 interface IProps {
   styleTags: [];
 }
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    width: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-size: 11px;
+    width: 100%;
+    background: #ffffff;
+    font-family: sans-serif;
+    color: #444444;
+    display: flex;
+    justify-content: center;
+  }
+
+  #__next {
+    width: 100%;
+  }
+`;

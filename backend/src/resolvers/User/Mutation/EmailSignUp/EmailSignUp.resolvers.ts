@@ -1,6 +1,5 @@
 import User from "../../../../entities/User";
 import { EmailSignUpMutationArgs, EmailSignUpResponse } from "../../../../types/graph";
-import createJWT from "../../../../utils/createJWT";
 
 const resolvers = {
   Mutation: {
@@ -12,24 +11,20 @@ const resolvers = {
           return {
             error: "This email has signed up already, please sign in",
             ok: false,
-            token: null,
             user: null
           };
         } else {
           const user = await User.create({ ...args }).save();
-          const token = await createJWT(user.id);
           if (user) {
             return {
               error: null,
               ok: true,
-              token,
               user
             };
           } else {
             return {
               error: "Registering Failed",
               ok: false,
-              token: null,
               user: null
             };
           }
@@ -38,7 +33,6 @@ const resolvers = {
         return {
           error: error.message,
           ok: false,
-          token: null,
           user: null
         };
       }

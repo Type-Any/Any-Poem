@@ -1,9 +1,0 @@
-type SavePoemResponse {
-  ok: Boolean!
-  error: String
-  poem: Poem
-}
-
-type Mutation {
-  SavePoem(title: String!, text: String!): SavePoemResponse!
-}
