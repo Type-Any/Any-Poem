@@ -1,13 +1,14 @@
+import ApolloClient from "apollo-client";
 import { GET_ISLOGIN } from "./queries";
 
 const resolvers = {
   Mutation: {
-    setIsLogin: (_, variables, { cache }) => {
+    setIsLogin: (_: any, variables: { isLogin: boolean }, { cache }: ApolloClient<any>) => {
       cache.writeQuery({
-        query: GET_ISLOGIN,
         data: {
           isLogin: variables.isLogin
-        }
+        },
+        query: GET_ISLOGIN
       });
       return null;
     }

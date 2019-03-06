@@ -7,14 +7,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  OneToMany,
+  JoinTable,
   ManyToMany,
-  JoinTable
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
-import Poem from "./Poem";
 import Comment from "./Comment";
+import Poem from "./Poem";
 
 const BCRYPT_ROUNDS = 10;
 
@@ -36,10 +36,10 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: false })
   penName: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   bio: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
   @CreateDateColumn()

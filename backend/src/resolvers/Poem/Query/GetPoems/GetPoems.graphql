@@ -1,0 +1,9 @@
+type GetPoemsResponse {
+  ok: Boolean!
+  error: String
+  poems: [Poem]
+}
+
+type Query {
+  GetPoems(skip: Int!, take: Int!, search: String): GetPoemsResponse!
+}

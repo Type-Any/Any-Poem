@@ -1,0 +1,11 @@
+type Comment {
+  id: Int!
+  commenter: User!
+  poem: Poem!
+  parent: Comment
+  children: [Comment]
+  text: String!
+  likes: [User]
+  createdAt: String!
+  updatedAt: String!
+}
