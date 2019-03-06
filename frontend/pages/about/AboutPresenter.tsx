@@ -1,6 +1,8 @@
 import React from "react";
+import { ApolloConsumer } from "react-apollo";
 import styled from "styled-components";
-import { IProfile } from "../../types/user";
+import { IProfile } from "../../types/types";
+import logout from "../../utils/logout";
 
 interface IProps {
   loggedInUser: {
@@ -8,15 +10,16 @@ interface IProps {
     profile: IProfile;
     error: string;
   };
-  logout: (apolloClient) => void;
 }
 
-export default ({ loggedInUser, logout }: IProps) => (
+export default ({ loggedInUser }: IProps) => (
   <Container>
     <h1>About</h1>
     <div>{loggedInUser.ok && loggedInUser.profile.email}님 환영합니다.</div>
 
-    {loggedInUser.ok ? <button onClick={logout}>로그아웃</button> : null}
+    {loggedInUser.ok ? (
+      <ApolloConsumer>{client => <button onClick={logout(client)}>로그아웃</button>}</ApolloConsumer>
+    ) : null}
   </Container>
 );
 

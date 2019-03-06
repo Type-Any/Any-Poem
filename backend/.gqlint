@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "description.type": "off",
+    "description.field": "off"
+  }
+}

@@ -1,28 +1,22 @@
+import { ApolloClient } from "apollo-client";
 import cookie from "cookie";
-import Router from "next/router";
 import React from "react";
 import { withApollo } from "react-apollo";
-import { SET_ISLOGIN } from "../../lib/client/queries";
-import { ApolloClientType, NextContextWithApollo } from "../../types/types";
+import { ctxWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
-import LoginPresenter from "./LoginPresenter";
-import { EMAIL_SIGN_IN } from "./LoginQueries";
+import LogInPresenter from "./LogInPresenter";
+import { EMAIL_SIGN_IN } from "./LogInQueries";
 
-interface IProps extends ApolloClientType {
-  from: string;
-  email: string;
-  password: string;
-  handleChange: (e: any) => void;
-  handleSubmit: () => void;
+interface IPropsWithApollo {
+  client: ApolloClient<any>;
 }
 
-class Login extends React.Component<IProps> {
-  static async getInitialProps(context: NextContextWithApollo): Promise<{}> {
+class Login extends React.Component<IPropsWithApollo & {}> {
+  static async getInitialProps(context: ctxWithApollo): Promise<{}> {
     const initialProps = {};
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
-
     if (context.req) {
       // server side
       if (loggedInUser && loggedInUser.ok) {
@@ -37,6 +31,7 @@ class Login extends React.Component<IProps> {
 
     return initialProps;
   }
+
   state = {
     email: "",
     password: ""
@@ -59,20 +54,11 @@ class Login extends React.Component<IProps> {
     });
 
     if (data.EmailSignIn.ok) {
-      document.cookie = cookie.serialize("token", data.EmailSignIn.token, {
+      document.cookie = cookie.serialize("X-JWT", data.EmailSignIn.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
-
-      this.props.client.cache.reset().then(() =>
-        this.props.client
-          .mutate({
-            mutation: SET_ISLOGIN,
-            variables: { isLogin: true }
-          })
-          .then(() => {
-            Router.replace("/");
-          })
-      );
+      // apolloClient 초기화를 위한 SSR routing
+      window.location.href = "/";
     } else {
       console.log(data.EmailSignIn.error);
     }
@@ -80,7 +66,7 @@ class Login extends React.Component<IProps> {
 
   render() {
     return (
-      <LoginPresenter
+      <LogInPresenter
         {...this.props}
         email={this.state.email}
         password={this.state.password}

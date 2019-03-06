@@ -1,0 +1,11 @@
+type Poem {
+  id: Int!
+  poet: User!
+  title: String!
+  text: String!
+  comments: [Comment]
+  likes: [User]
+  isPublished: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}

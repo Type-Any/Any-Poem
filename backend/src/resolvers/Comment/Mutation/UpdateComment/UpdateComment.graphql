@@ -1,0 +1,10 @@
+type UpdateCommentResponse {
+  ok: Boolean!
+  error: String
+  comment: Comment
+}
+
+type Mutation {
+  UpdateComment(commentId: Int!, text: String): UpdateCommentResponse!
+  LikeComment(commentId: Int!): UpdateCommentResponse!
+}
