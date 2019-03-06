@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import styled from "styled-components";
+import ClickOutside from "react-simple-click-outside";
 
 const Nav = (props: WithRouterProps) => {
   const { router } = props;
@@ -11,49 +12,51 @@ const Nav = (props: WithRouterProps) => {
 
   return (
     <Container>
-      <ButtonList>
-        <li>
-          <Link href="/">
-            <a>
-              <FaSearch />
-            </a>
-          </Link>
-        </li>
-        <li>
-          <button type="button" onClick={() => setMenuOpen(!isMenuOpen)}>
-            <IoIosMenu />
-          </button>
-        </li>
-      </ButtonList>
-      {isMenuOpen ? (
-        <LinkList>
-          <Li>
+      <ClickOutside close={() => setMenuOpen(false)} target="isMenuOpen">
+        <ButtonList>
+          <li>
             <Link href="/">
-              <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
+              <a>
+                <FaSearch />
+              </a>
             </Link>
-          </Li>
-          <Li>
-            <Link href="/poem">
-              <A>모든 시</A>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/">
-              <A>오늘의 추천 시</A>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/signup">
-              <A>회원가입</A>
-            </Link>
-          </Li>
-          <Li>
-            <Link href="/login">
-              <A>로그인</A>
-            </Link>
-          </Li>
-        </LinkList>
-      ) : null}
+          </li>
+          <li>
+            <button type="button" onClick={() => setMenuOpen(!isMenuOpen)}>
+              <IoIosMenu />
+            </button>
+          </li>
+        </ButtonList>
+        {isMenuOpen ? (
+          <LinkList>
+            <Li>
+              <Link href="/">
+                <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/poem">
+                <A>모든 시</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/">
+                <A>오늘의 추천 시</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/signup">
+                <A>회원가입</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/login">
+                <A>로그인</A>
+              </Link>
+            </Li>
+          </LinkList>
+        ) : null}
+      </ClickOutside>
     </Container>
   );
 };
