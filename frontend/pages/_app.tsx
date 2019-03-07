@@ -3,9 +3,10 @@ import Head from "next/head";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { createGlobalStyle } from "styled-components";
-import Nav from "../components/Nav";
 import withApollo from "../lib/withApollo";
 import { AppPropsWithApollo } from "../types/types";
+import Nav from "../components/Nav";
+import styled from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -24,7 +25,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #__next {
-    width: 100%;
+		min-width: 1024pt;
+		width: 100%;
+    margin: 0;
   }
 `;
 
@@ -38,12 +41,19 @@ class MyApp extends App<AppPropsWithApollo> {
         </Head>
         <GlobalStyle />
         <ApolloProvider client={apolloClient}>
-          <Nav />
-          <Component {...pageProps} />
+          <Layout>
+            <Nav />
+            <Component {...pageProps} />
+          </Layout>
         </ApolloProvider>
       </Container>
     );
   }
 }
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default withApollo(MyApp);
