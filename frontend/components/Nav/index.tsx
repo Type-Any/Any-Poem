@@ -1,18 +1,22 @@
 import Link from "next/link";
 import { withRouter, WithRouterProps } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import styled from "styled-components";
 import ClickOutside from "react-simple-click-outside";
 
-const Nav = (props: WithRouterProps) => {
-  const { router } = props;
-  const [isMenuOpen, setMenuOpen] = useState(false);
+interface IProps extends WithRouterProps {
+  isOpen: boolean;
+  clickMenu: (isOpen: boolean) => void;
+}
+
+const Nav = (props: IProps) => {
+  const { isOpen, clickMenu, router } = props;
 
   return (
     <Container>
-      <ClickOutside close={() => setMenuOpen(false)} target="isMenuOpen">
+      <ClickOutside close={() => clickMenu(false)} target="isOpen">
         <ButtonList>
           <li>
             <Link href="/">
@@ -22,12 +26,12 @@ const Nav = (props: WithRouterProps) => {
             </Link>
           </li>
           <li>
-            <button type="button" onClick={() => setMenuOpen(!isMenuOpen)}>
+            <button type="button" onClick={() => clickMenu(!isOpen)}>
               <IoIosMenu />
             </button>
           </li>
         </ButtonList>
-        {isMenuOpen ? (
+        {isOpen ? (
           <LinkList>
             <Li>
               <Link href="/">
@@ -64,10 +68,10 @@ const Nav = (props: WithRouterProps) => {
 const Container = styled.div`
   left: 0;
   top: 0;
-  bottom: 0;
   margin: 0;
   padding: 0;
-  position: relative;
+  height: 100vh;
+  position: fixed;
   background-color: rgb(248, 248, 248);
   z-index: 100;
 `;

@@ -2,129 +2,164 @@ import Link from "next/link";
 import React from "react";
 import { FaEdit, FaSearch } from "react-icons/fa";
 import styled from "styled-components";
+import Nav from "../../components/Nav";
+import useHandleMenu from "../../utils/useHandleMenu";
 
-export default () => (
-  <Container>
-    <SubTitle>누구나 쓰는 시</SubTitle>
-    <MainTitle>Any Poem</MainTitle>
-    <MainIntroText>
-      우리는
-      <br />
-      누구나 쓸 수 있는 플랫폼을 지향합니다.
-      <br />
-      누구나 쓸 수 있고 누구나 읽을 수 있습니다.
-    </MainIntroText>
-    <SubIntroText>
-      지금, 시작해보세요.
-      <br />
-      많은 사람과 함께 해보세요.
-    </SubIntroText>
-    <GrayLine />
-    <PickTitle>Today Pick</PickTitle>
-    <PickLists>
-      <li>
-        <PoemTitle>일곱의 조각칼</PoemTitle>
-        <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
-        <LinkButton>읽기</LinkButton>
-      </li>
-      <li>
-        <PoemTitle>일곱의 조각칼</PoemTitle>
-        <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
-        <LinkButton>읽기</LinkButton>
-      </li>
-      <li>
-        <PoemTitle>일곱의 조각칼</PoemTitle>
-        <WriterName>Written by Evan Jin</WriterName>
-        <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
-        <LinkButton>읽기</LinkButton>
-      </li>
-    </PickLists>
-    <FeaturedTitle>Featured writer</FeaturedTitle>
-    <FeaturedList>
-      <li>
-        <Link href={`/`}>
-          <a>
-            <Profile>
-              <HoverBox>
-                <FaSearch />
-              </HoverBox>
-            </Profile>
-            <Writer>Evan Jin 0</Writer>
-            <CounterPoem>3 poems</CounterPoem>
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={`/`}>
-          <a>
-            <Profile>
-              <HoverBox>
-                <FaSearch />
-              </HoverBox>
-            </Profile>
-            <Writer>Evan Jin 1</Writer>
-            <CounterPoem>3 poems</CounterPoem>
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={`/`}>
-          <a>
-            <Profile>
-              <HoverBox>
-                <FaSearch />
-              </HoverBox>
-            </Profile>
-            <Writer>Evan Jin 2</Writer>
-            <CounterPoem>3 poems</CounterPoem>
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={`/`}>
-          <a>
-            <Profile>
-              <HoverBox>
-                <FaSearch />
-              </HoverBox>
-            </Profile>
-            <Writer>Evan Jin 3</Writer>
-            <CounterPoem>3 poems</CounterPoem>
-          </a>
-        </Link>
-      </li>
-    </FeaturedList>
-    <CopyrightBox>
-      <CopyrightSubTitle>누구나 쓰는 시</CopyrightSubTitle>
-      <CopyrightTitle>Any Poem</CopyrightTitle>
-      <CopyrightText>Copyright 2019</CopyrightText>
-    </CopyrightBox>
-    <FloatBox>
-      <li>
-        <Link href={`/write`}>
-          <a>
-            <FaEdit />
-            <p>시 작성</p>
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={`/write`}>
-          <a>시작</a>
-        </Link>
-      </li>
-    </FloatBox>
-  </Container>
-);
+interface IProps {}
+
+const IndexPresenter = (props: IProps) => {
+  const handleMenu = useHandleMenu(false);
+
+  return (
+    <Container>
+      <Nav {...handleMenu} />
+      <MainContainerHoverBox isOpen={handleMenu.isOpen} />
+      <MainContainer isOpen={handleMenu.isOpen}>
+        <SubTitle>누구나 쓰는 시</SubTitle>
+        <MainTitle>Any Poem</MainTitle>
+        <MainIntroText>
+          우리는
+          <br />
+          누구나 쓸 수 있는 플랫폼을 지향합니다.
+          <br />
+          누구나 쓸 수 있고 누구나 읽을 수 있습니다.
+        </MainIntroText>
+        <SubIntroText>
+          지금, 시작해보세요.
+          <br />
+          많은 사람과 함께 해보세요.
+        </SubIntroText>
+        <GrayLine />
+        <PickTitle>Today Pick</PickTitle>
+        <PickLists>
+          <li>
+            <PoemTitle>일곱의 조각칼</PoemTitle>
+            <WriterName>Written by Evan Jin</WriterName>
+            <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
+            <LinkButton>읽기</LinkButton>
+          </li>
+          <li>
+            <PoemTitle>일곱의 조각칼</PoemTitle>
+            <WriterName>Written by Evan Jin</WriterName>
+            <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
+            <LinkButton>읽기</LinkButton>
+          </li>
+          <li>
+            <PoemTitle>일곱의 조각칼</PoemTitle>
+            <WriterName>Written by Evan Jin</WriterName>
+            <PoemContent>외로움, 가장 외로운 날엔 통화버튼이 보이지 않는다</PoemContent>
+            <LinkButton>읽기</LinkButton>
+          </li>
+        </PickLists>
+        <FeaturedTitle>Featured writer</FeaturedTitle>
+        <FeaturedList>
+          <li>
+            <Link href={`/`}>
+              <a>
+                <Profile>
+                  <HoverBox>
+                    <FaSearch />
+                  </HoverBox>
+                </Profile>
+                <Writer>Evan Jin 0</Writer>
+                <CounterPoem>3 poems</CounterPoem>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href={`/`}>
+              <a>
+                <Profile>
+                  <HoverBox>
+                    <FaSearch />
+                  </HoverBox>
+                </Profile>
+                <Writer>Evan Jin 1</Writer>
+                <CounterPoem>3 poems</CounterPoem>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href={`/`}>
+              <a>
+                <Profile>
+                  <HoverBox>
+                    <FaSearch />
+                  </HoverBox>
+                </Profile>
+                <Writer>Evan Jin 2</Writer>
+                <CounterPoem>3 poems</CounterPoem>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href={`/`}>
+              <a>
+                <Profile>
+                  <HoverBox>
+                    <FaSearch />
+                  </HoverBox>
+                </Profile>
+                <Writer>Evan Jin 3</Writer>
+                <CounterPoem>3 poems</CounterPoem>
+              </a>
+            </Link>
+          </li>
+        </FeaturedList>
+        <CopyrightBox>
+          <CopyrightSubTitle>누구나 쓰는 시</CopyrightSubTitle>
+          <CopyrightTitle>Any Poem</CopyrightTitle>
+          <CopyrightText>Copyright 2019</CopyrightText>
+        </CopyrightBox>
+      </MainContainer>
+      <FloatBox>
+        <li>
+          <Link href={`/write`}>
+            <a>
+              <FaEdit />
+              <p>시 작성</p>
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={`/write`}>
+            <a>시작</a>
+          </Link>
+        </li>
+      </FloatBox>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   position: relative;
-  width: 667pt;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+`;
+
+const MainContainer = styled.div<{ isOpen?: boolean }>`
+  position: relative;
+  left: ${props => (props.isOpen ? "200px" : "0")};
+  flex-direction: column;
   margin: 0 auto;
   padding: 92px 0 0;
-  text-align: center;
+  width: 667pt;
+  opacity: ${props => (props.isOpen ? "0.5" : "1")};
+`;
+
+const MainContainerHoverBox = styled.div<{ isOpen?: boolean }>`
+  position: absolute;
+  content: "";
+  display: ${props => (props.isOpen ? "block" : "none")};
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgba(120, 120, 120, 0.65);
+  opacity: 0.5;
+  transition: all 0.3s;
 `;
 
 const SubTitle = styled.p`
@@ -392,3 +427,5 @@ const FloatBox = styled.ul`
     text-decoration: none;
   }
 `;
+
+export default IndexPresenter;
