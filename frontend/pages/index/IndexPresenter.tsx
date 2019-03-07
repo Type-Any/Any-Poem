@@ -131,6 +131,10 @@ const IndexPresenter = (props: IProps) => {
   );
 };
 
+const SerifText = styled.p`
+  font-family: serif;
+`;
+
 const Container = styled.div`
   position: relative;
   display: flex;
@@ -166,26 +170,22 @@ const SubTitle = styled.p`
   font-size: 15pt;
   margin-bottom: 18px;
   color: rgb(36, 36, 36);
-  font-family: "Noto Sans", sans-serif;
 `;
 
 const MainTitle = styled.h1`
   margin-bottom: 176px;
   font-size: 35pt;
   color: rgb(36, 36, 36);
-  font-family: "Noto Sans", sans-serif;
 `;
 
-const MainIntroText = styled.p`
-  font-family: "Nanum Myeongjo", serif;
+const MainIntroText = styled(SerifText)`
   font-size: 24pt;
   line-height: 35pt;
   color: rgb(64, 64, 64);
   margin-bottom: 46pt;
 `;
 
-const SubIntroText = styled.p`
-  font-family: "Nanum Myeongjo", serif;
+const SubIntroText = styled(SerifText)`
   font-size: 24pt;
   line-height: 35pt;
   color: rgb(64, 64, 64);
@@ -211,12 +211,10 @@ const PickTitle = styled.h2`
 const PickLists = styled.ul`
   width: 100%;
   display: flex;
-  list-style: none;
   margin: 0 0 68pt;
   padding: 0;
   > li {
     width: 33.33%;
-    list-style: none;
     margin: 0;
     padding: 0;
     position: relative;
@@ -248,20 +246,17 @@ const PickLists = styled.ul`
 
 const PoemTitle = styled.p`
   font-size: 21pt;
-  font-family: "Noto Sans", sans-serif;
   margin-bottom: 5pt;
   color: rgb(36, 36, 36);
 `;
 
 const WriterName = styled.p`
   font-size: 13pt;
-  font-family: "Noto Sans", sans-serif;
   margin-bottom: 15pt;
   color: rgb(142, 142, 142);
 `;
 
 const PoemContent = styled.div`
-  font-family: "Nanum Myeongjo", serif;
   font-size: 13pt;
   line-height: 23pt;
   color: rgb(88, 88, 88);
@@ -274,7 +269,6 @@ const LinkButton = styled.a`
   height: 36pt;
   line-height: 36pt;
   text-align: center;
-  font-family: "Noto Sans", sans-serif;
   font-size: 13pt;
   color: #fff;
   background-color: rgb(35, 35, 35);
@@ -393,11 +387,9 @@ const FloatBox = styled.ul`
   position: fixed;
   left: 49pt;
   top: 50%;
-  list-style: none;
   z-index: 200;
   transform: translateY(-50%);
   > li {
-    list-style: none;
     width: 100pt;
     height: 100pt;
     background-color: rgb(36, 36, 36);

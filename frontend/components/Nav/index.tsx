@@ -3,8 +3,8 @@ import { withRouter, WithRouterProps } from "next/router";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
-import styled from "styled-components";
 import ClickOutside from "react-simple-click-outside";
+import styled from "styled-components";
 
 interface IProps extends WithRouterProps {
   isOpen: boolean;
@@ -79,7 +79,6 @@ const Container = styled.div`
 const LinkList = styled.ul`
   vertical-align: top;
   display: inline-block;
-  list-style: none;
   width: 130pt;
   height: 100%;
   margin: 70pt 0 0;
@@ -87,7 +86,6 @@ const LinkList = styled.ul`
 `;
 
 const Li = styled.li`
-  list-style-type: none;
   padding: 0;
   text-align: left;
 `;
@@ -95,7 +93,6 @@ const Li = styled.li`
 const A = styled.a<{ active?: boolean }>`
   width: 100%;
   height: 50px;
-  font-family: "Noto Sans", sans-serif;
   color: ${props => (props.active ? "rgb(71, 71, 71)" : "rgb(120, 120, 120)")};
   font-size: 17px;
   text-decoration: none;
@@ -113,7 +110,6 @@ const ButtonList = styled.ul`
   display: inline-block;
   width: 60pt;
   height: 100%;
-  list-style: none;
   margin: 0;
   padding: 0;
   > li {
@@ -135,6 +131,7 @@ const ButtonList = styled.ul`
     height: 100%;
   }
   button {
+    cursor: pointer;
     outline: none;
     border: none;
     background: none;
