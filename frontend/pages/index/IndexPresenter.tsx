@@ -149,7 +149,8 @@ const MainContainer = styled.div<{ isOpen?: boolean }>`
   margin: 0 auto;
   padding: 92px 0 0;
   width: 667pt;
-  opacity: ${props => (props.isOpen ? "0.5" : "1")};
+  opacity: ${props => (props.isOpen ? "0.6" : "1")};
+  transition: all 0.3s;
 `;
 
 const MainContainerHoverBox = styled.div<{ isOpen?: boolean }>`
@@ -163,6 +164,7 @@ const MainContainerHoverBox = styled.div<{ isOpen?: boolean }>`
   width: 100vw;
   background-color: rgba(120, 120, 120, 0.65);
   opacity: 0.5;
+  z-index: 50;
   transition: all 0.3s;
 `;
 

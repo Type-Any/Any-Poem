@@ -31,35 +31,33 @@ const Nav = (props: IProps) => {
             </button>
           </li>
         </ButtonList>
-        {isOpen ? (
-          <LinkList>
-            <Li>
-              <Link href="/">
-                <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
-              </Link>
-            </Li>
-            <Li>
-              <Link href="/poem">
-                <A>모든 시</A>
-              </Link>
-            </Li>
-            <Li>
-              <Link href="/">
-                <A>오늘의 추천 시</A>
-              </Link>
-            </Li>
-            <Li>
-              <Link href="/signup">
-                <A>회원가입</A>
-              </Link>
-            </Li>
-            <Li>
-              <Link href="/login">
-                <A>로그인</A>
-              </Link>
-            </Li>
-          </LinkList>
-        ) : null}
+        <LinkList isOpen={isOpen}>
+          <Li>
+            <Link href="/">
+              <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/poem">
+              <A>모든 시</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/">
+              <A>오늘의 추천 시</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/signup">
+              <A>회원가입</A>
+            </Link>
+          </Li>
+          <Li>
+            <Link href="/login">
+              <A>로그인</A>
+            </Link>
+          </Li>
+        </LinkList>
       </ClickOutside>
     </Container>
   );
@@ -76,13 +74,18 @@ const Container = styled.div`
   z-index: 100;
 `;
 
-const LinkList = styled.ul`
+const LinkList = styled.ul<{ isOpen: boolean }>`
   vertical-align: top;
   display: inline-block;
+  position: absolute;
+  left: ${props => (!props.isOpen ? "-100pt" : "60pt")};
   width: 130pt;
   height: 100%;
-  margin: 70pt 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 70pt 0 0 10pt;
+  background-color: rgb(248, 248, 248);
+  transition: all 0.5s;
+  z-index: 100;
 `;
 
 const Li = styled.li`
@@ -108,10 +111,14 @@ const A = styled.a<{ active?: boolean }>`
 
 const ButtonList = styled.ul`
   display: inline-block;
+  position: relative;
   width: 60pt;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  float: left;
+  background-color: rgb(248, 248, 248);
+  z-index: 150;
   > li {
     margin: 0;
     padding: 0;
