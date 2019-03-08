@@ -32,27 +32,27 @@ const Nav = (props: IProps) => {
           </li>
         </ButtonList>
         <LinkList isOpen={isOpen}>
-          <Li>
+          <Li isOpen={isOpen}>
             <Link href="/">
               <A active={router && router.route === "/" ? true : false}>애니포엠 홈</A>
             </Link>
           </Li>
-          <Li>
+          <Li isOpen={isOpen}>
             <Link href="/poem">
               <A>모든 시</A>
             </Link>
           </Li>
-          <Li>
+          <Li isOpen={isOpen}>
             <Link href="/">
               <A>오늘의 추천 시</A>
             </Link>
           </Li>
-          <Li>
+          <Li isOpen={isOpen}>
             <Link href="/signup">
               <A>회원가입</A>
             </Link>
           </Li>
-          <Li>
+          <Li isOpen={isOpen}>
             <Link href="/login">
               <A>로그인</A>
             </Link>
@@ -84,13 +84,15 @@ const LinkList = styled.ul<{ isOpen: boolean }>`
   margin: 0;
   padding: 70pt 0 0 10pt;
   background-color: rgb(248, 248, 248);
-  transition: all 0.5s;
+  transition: all 0.3s;
   z-index: 100;
 `;
 
-const Li = styled.li`
+const Li = styled.li<{ isOpen: boolean }>`
   padding: 0;
   text-align: left;
+  opacity: ${props => (!props.isOpen ? "0" : "1")};
+  transition: all 0.3s;
 `;
 
 const A = styled.a<{ active?: boolean }>`

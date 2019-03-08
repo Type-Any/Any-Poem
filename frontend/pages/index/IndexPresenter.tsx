@@ -162,7 +162,7 @@ const MainContainerHoverBox = styled.div<{ isOpen?: boolean }>`
   top: 0;
   bottom: 0;
   width: 100vw;
-  background-color: rgba(120, 120, 120, 0.65);
+  background-color: rgba(120, 120, 120, 0.4);
   opacity: 0.5;
   z-index: 50;
   transition: all 0.3s;
