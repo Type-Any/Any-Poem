@@ -12,26 +12,30 @@ interface IProps {
 
 const PoemPresenter = (props: IProps) => {
   const { poem } = props;
-  return (
-    <div>
+  if (poem) {
+    return (
       <div>
-        <div>제목 </div>
-        <div>{poem.title}</div>
+        <div>
+          <div>제목 </div>
+          <div>{poem.title}</div>
+        </div>
+        <div>작가: {poem.poet.penName}</div>
+        <div>
+          <LikePoem poem={poem} />
+        </div>
+        <div>{poem.text}</div>
+        <div>
+          <Link href={`/write?id=${encodeId(poem.id)}`} as={`/write/${encodeId(poem.id)}`}>
+            <a>수정</a>
+          </Link>
+          <DeletePoem poem={poem} />
+        </div>
+        <Comments poemId={poem.id} />
       </div>
-      <div>작가: {poem.poet.penName}</div>
-      <div>
-        <LikePoem poem={poem} />
-      </div>
-      <div>{poem.text}</div>
-      <div>
-        <Link href={`/write?id=${encodeId(poem.id)}`} as={`/write/${encodeId(poem.id)}`}>
-          <a>수정</a>
-        </Link>
-        <DeletePoem poem={poem} />
-      </div>
-      <Comments poemId={poem.id} />
-    </div>
-  );
+    );
+  } else {
+    return <div>현재 시가 없습니다.</div>;
+  }
 };
 
 export default PoemPresenter;
