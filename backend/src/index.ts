@@ -5,14 +5,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { GraphQLServer } from "graphql-yoga";
+import { ContextParameters } from "graphql-yoga/dist/types";
 import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import schema from "./schema";
 import decodeJWT from "./utils/decodeJWT";
 
 const server = new GraphQLServer({
-  schema,
-  context: async (request: any) => {
+  context: async (request: ContextParameters) => {
     let userId: string | undefined;
 
     const token = request.request.get("X-JWT") || "";
@@ -21,7 +21,8 @@ const server = new GraphQLServer({
     }
 
     return { request, userId };
-  }
+  },
+  schema
 });
 
 createConnection(connectionOptions)
