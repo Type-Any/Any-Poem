@@ -1,23 +1,18 @@
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
 import styled from "styled-components";
-import { IProfile } from "../../types/types";
+import { GetMyProfileResponse } from "../../types/graph";
 import logout from "../../utils/logout";
 
 interface IProps {
-  loggedInUser: {
-    ok: boolean;
-    profile: IProfile;
-    error: string;
-  };
+  loggedInUser: GetMyProfileResponse | null;
 }
 
 export default ({ loggedInUser }: IProps) => (
   <Container>
     <h1>About</h1>
-    <div>{loggedInUser.ok && loggedInUser.profile.email}님 환영합니다.</div>
-
-    {loggedInUser.ok ? (
+    <div>{loggedInUser && loggedInUser.ok && loggedInUser.profile && loggedInUser.profile.email}님 환영합니다.</div>
+    {loggedInUser ? (
       <ApolloConsumer>{client => <button onClick={logout(client)}>로그아웃</button>}</ApolloConsumer>
     ) : null}
   </Container>
