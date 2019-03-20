@@ -27,7 +27,7 @@ const create = (initCache: NormalizedCacheObject, token: string) => {
   const authLink = setContext((_, { headers }) => ({
     headers: {
       ...headers,
-      authorization: token ? `X-JWT ${token}` : ""
+      "X-JWT": token ? token : ""
     }
   }));
   const cache = new InMemoryCache().restore(initCache || {});
