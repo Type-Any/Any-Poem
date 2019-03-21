@@ -1,5 +1,6 @@
 const express = require("express");
 const next = require("next");
+const passport = require("passport");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -11,10 +12,7 @@ app
   .then(() => {
     const server = express();
 
-    // server.use((req, res, next) => {
-    //   req.url = req.originalUrl.replace(`staging/_next`, "_next");
-    //   next(); // be sure to let the next middleware handle the modified request.
-    // });
+    server.use(passport.initialize());
 
     server.get("/", (req, res) => {
       return app.render(req, res, "/", req.params);
@@ -27,6 +25,14 @@ app
     server.get("/login", (req, res) => {
       return app.render(req, res, "/login", req.params);
     });
+
+    require("./lib/auth/googlePassport")(app, server);
+
+    require("./lib/auth/facebookPassport")(app, server);
+
+    require("./lib/auth/naverPassport")(app, server);
+
+    require("./lib/auth/kakaoPassport")(app, server);
 
     server.get("/about", (req, res) => {
       return app.render(req, res, "/about", req.params);

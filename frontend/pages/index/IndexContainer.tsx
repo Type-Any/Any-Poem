@@ -1,21 +1,16 @@
 import { NextContext } from "next";
 import React from "react";
 import { Query } from "react-apollo";
+import { ctxWithApollo, IPropsWithApollo } from "../../types/types";
 import { GET_POEMS } from "../poem/PoemQueries";
 import IndexPresenter from "./IndexPresenter";
 
-interface IProps {
-  from: string;
-}
+export default class extends React.Component<IPropsWithApollo> {
+  static async getInitialProps(context: ctxWithApollo): Promise<{}> {
+    const initialProps = {};
 
-export default class extends React.Component<IProps> {
-  static async getInitialProps({ req }: NextContext): Promise<IProps> {
-    const initialProps = {
-      from: "client"
-    };
-    if (req) {
+    if (context.req) {
       // server side
-      initialProps.from = "server";
     }
 
     return initialProps;

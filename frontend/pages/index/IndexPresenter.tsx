@@ -3,9 +3,12 @@ import React from "react";
 import { FaEdit, FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import Nav from "../../components/Nav";
+import { Poem } from "../../types/graph";
 import useHandleMenu from "../../utils/useHandleMenu";
 
-interface IProps {}
+interface IProps {
+  poems: Poem[];
+}
 
 const IndexPresenter = (props: IProps) => {
   const handleMenu = useHandleMenu(false);
