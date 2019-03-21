@@ -1,7 +1,8 @@
 type User {
   id: Int!
   email: String!
-  password: String!
+  password: String
+  oauthId: String
   fullName: String!
   penName: String!
   bio: String

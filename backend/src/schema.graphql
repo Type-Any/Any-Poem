@@ -12,8 +12,8 @@ type Mutation {
   SavePoem(title: String!, text: String!): SavePoemResponse!
   UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!
   LikePoem(poemId: Int!): UpdatePoemResponse!
-  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
-  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!
+  EmailSignIn(email: String!, password: String, oauthId: String): EmailSignInResponse!
+  EmailSignUp(email: String!, password: String, oauthId: String, fullName: String!, penName: String!): EmailSignUpResponse!
 }
 
 type SaveCommentResponse {
@@ -39,6 +39,7 @@ type Query {
   GetMyPoems(skip: Int!, take: Int!): GetMyPoemsResponse!
   GetPoem(poemId: Int!): GetPoemResponse!
   GetPoems(skip: Int!, take: Int!, search: String): GetPoemsResponse!
+  CheckUserExists(email: String, oauthId: String): CheckUserExistsResponse!
   GetMyProfile: GetMyProfileResponse!
 }
 
@@ -114,6 +115,12 @@ type EmailSignUpResponse {
   token: String
 }
 
+type CheckUserExistsResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
 type GetMyProfileResponse {
   ok: Boolean!
   error: String
@@ -123,7 +130,8 @@ type GetMyProfileResponse {
 type User {
   id: Int!
   email: String!
-  password: String!
+  password: String
+  oauthId: String
   fullName: String!
   penName: String!
   bio: String
