@@ -5,7 +5,7 @@ import { EmailSignInMutationArgs, EmailSignInResponse } from "./../../../../type
 const resolvers = {
   Mutation: {
     EmailSignIn: async (_: any, args: EmailSignInMutationArgs): Promise<EmailSignInResponse> => {
-      const { email, password } = args;
+      const { email, password, oauthId } = args;
 
       try {
         const user = await User.findOne({ email });
@@ -19,21 +19,54 @@ const resolvers = {
           };
         }
 
-        const passwordCheck = await user.comparePassword(password);
-
-        if (passwordCheck) {
-          const token = await createJWT(user.id);
+        // prevent accessing with blank password
+        if (!password && !user.oauthId) {
           return {
-            error: null,
-            ok: true,
-            token
-          };
-        } else {
-          return {
-            error: "wrong password",
-            ok: true,
+            error: "Password is required",
+            ok: false,
             token: null
           };
+        }
+
+        if (!user.oauthId) {
+          if (!password || password === "") {
+            return {
+              error: "Password is required",
+              ok: false,
+              token: null
+            };
+          }
+          const passwordCheck = await user.comparePassword(password);
+
+          if (passwordCheck) {
+            const token = await createJWT(user.id);
+            return {
+              error: null,
+              ok: true,
+              token
+            };
+          } else {
+            return {
+              error: "wrong password",
+              ok: false,
+              token: null
+            };
+          }
+        } else {
+          if (user.oauthId === oauthId) {
+            const token = await createJWT(user.id);
+            return {
+              error: null,
+              ok: true,
+              token
+            };
+          } else {
+            return {
+              error: "Oauth ID is not matched",
+              ok: false,
+              token: null
+            };
+          }
         }
       } catch (error) {
         return {

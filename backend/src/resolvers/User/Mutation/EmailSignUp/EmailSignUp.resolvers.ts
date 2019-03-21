@@ -6,7 +6,8 @@ const resolvers = {
   Mutation: {
     EmailSignUp: async (_: any, args: EmailSignUpMutationArgs): Promise<EmailSignUpResponse> => {
       try {
-        const { email } = args;
+        const { email, password, oauthId, fullName, penName } = args;
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
           return {
@@ -16,18 +17,45 @@ const resolvers = {
             user: null
           };
         } else {
-          const user = await User.create({ ...args }).save();
-          const token = await createJWT(user.id);
-          if (user) {
-            return {
-              error: null,
-              ok: true,
-              token,
-              user
-            };
+          if (password) {
+            const user = await User.create({ email, password, fullName, penName }).save();
+            const token = await createJWT(user.id);
+            if (user) {
+              return {
+                error: null,
+                ok: true,
+                token,
+                user
+              };
+            } else {
+              return {
+                error: "Registering Failed",
+                ok: false,
+                token: null,
+                user: null
+              };
+            }
+          } else if (oauthId) {
+            const user = await User.create({ email, oauthId, fullName, penName }).save();
+            const token = await createJWT(user.id);
+            if (user) {
+              return {
+                error: null,
+                ok: true,
+                token,
+                user
+              };
+            } else {
+              return {
+                error: "Registering Failed",
+                ok: false,
+                token: null,
+                user: null
+              };
+            }
           } else {
             return {
-              error: "Registering Failed",
+              error: "Password or OauthID is required",
               ok: false,
               token: null,
               user: null
