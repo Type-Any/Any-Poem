@@ -20,9 +20,9 @@ export default function withApollo<TCache = any>(App: typeof NextApp) {
     static async getInitialProps(context: NextAppContextWithApollo) {
       const { Component, router, ctx } = context;
 
-      const { token } = parseCookies(ctx.req);
+      const { anypoemJWT } = parseCookies(ctx.req);
 
-      const apolloClient = initApollo({}, token);
+      const apolloClient = initApollo({}, anypoemJWT);
       ctx.apolloClient = apolloClient;
 
       let appProps = { pageProps: {} };
@@ -50,13 +50,13 @@ export default function withApollo<TCache = any>(App: typeof NextApp) {
       return {
         ...appProps,
         apolloCache,
-        token
+        anypoemJWT
       };
     }
     apolloClient: ApolloClient<NormalizedCacheObject>;
-    constructor(props: ApolloProps & AppProps & DefaultAppIProps & { token: string }) {
+    constructor(props: ApolloProps & AppProps & DefaultAppIProps & { anypoemJWT: string }) {
       super(props);
-      this.apolloClient = initApollo(props.apolloCache, props.token);
+      this.apolloClient = initApollo(props.apolloCache, props.anypoemJWT);
     }
 
     render() {

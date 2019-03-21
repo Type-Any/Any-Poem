@@ -10,7 +10,6 @@ import SignUpPresenter from "./SignUpPresenter";
 import { EMAIL_SIGN_UP } from "./SignUpQueries";
 
 interface IProps extends ApolloClientType {
-  from: string;
   email: string;
   password: string;
   handleChange: (e: any) => void;
@@ -62,7 +61,7 @@ class SignUp extends React.Component<IProps> {
     });
 
     if (data.EmailSignUp.ok) {
-      document.cookie = cookie.serialize("token", data.EmailSignUp.token, {
+      document.cookie = cookie.serialize("anypoemJWT", data.EmailSignUp.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
 
