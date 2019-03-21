@@ -1,0 +1,9 @@
+type CheckUserExistsResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Query {
+  CheckUserExists(email: String, oauthId: String): CheckUserExistsResponse!
+}

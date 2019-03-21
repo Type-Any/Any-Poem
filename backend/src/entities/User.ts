@@ -27,8 +27,11 @@ class User extends BaseEntity {
   @IsEmail()
   email: string;
 
-  @Column({ type: "text", nullable: false })
+  @Column({ type: "text", nullable: true })
   password: string;
+
+  @Column({ type: "text", nullable: true })
+  oauthId: string;
 
   @Column({ type: "text", nullable: false })
   fullName: string;

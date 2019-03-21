@@ -6,5 +6,11 @@ type EmailSignUpResponse {
 }
 
 type Mutation {
-  EmailSignUp(email: String!, password: String!, fullName: String!, penName: String!): EmailSignUpResponse!
+  EmailSignUp(
+    email: String!
+    password: String
+    oauthId: String
+    fullName: String!
+    penName: String!
+  ): EmailSignUpResponse!
 }

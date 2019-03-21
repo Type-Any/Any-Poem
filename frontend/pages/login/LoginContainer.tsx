@@ -2,21 +2,18 @@ import { ApolloClient } from "apollo-client";
 import cookie from "cookie";
 import React from "react";
 import { withApollo } from "react-apollo";
-import { ctxWithApollo } from "../../types/types";
+import { ctxWithApollo, IPropsWithApollo } from "../../types/types";
 import checkLogin from "../../utils/checkLogin";
 import redirect from "../../utils/redirect";
 import LogInPresenter from "./LogInPresenter";
 import { EMAIL_SIGN_IN } from "./LogInQueries";
-
-interface IPropsWithApollo {
-  client: ApolloClient<any>;
-}
 
 class Login extends React.Component<IPropsWithApollo & {}> {
   static async getInitialProps(context: ctxWithApollo): Promise<{}> {
     const initialProps = {};
 
     const { loggedInUser } = await checkLogin(context.apolloClient);
+
     if (context.req) {
       // server side
       if (loggedInUser && loggedInUser.ok) {
@@ -54,7 +51,7 @@ class Login extends React.Component<IPropsWithApollo & {}> {
     });
 
     if (data.EmailSignIn.ok) {
-      document.cookie = cookie.serialize("X-JWT", data.EmailSignIn.token, {
+      document.cookie = cookie.serialize("anypoemJWT", data.EmailSignIn.token, {
         maxAge: 30 * 24 * 60 * 60 // 30 days
       });
       // apolloClient 초기화를 위한 SSR routing
