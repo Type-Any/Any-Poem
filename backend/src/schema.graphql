@@ -12,6 +12,7 @@ type Mutation {
   SavePoem(title: String!, text: String!): SavePoemResponse!
   UpdatePoem(poemId: Int!, title: String, text: String, isPublished: Boolean): SavePoemResponse!
   LikePoem(poemId: Int!): UpdatePoemResponse!
+  ChangeProfile(penName: String, bio: String, avatar: String): ChangeProfileResponse!
   EmailSignIn(email: String!, password: String, oauthId: String): EmailSignInResponse!
   EmailSignUp(email: String!, password: String, oauthId: String, fullName: String!, penName: String!): EmailSignUpResponse!
 }
@@ -100,6 +101,12 @@ type Poem {
   isPublished: Boolean!
   createdAt: String!
   updatedAt: String!
+}
+
+type ChangeProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type EmailSignInResponse {

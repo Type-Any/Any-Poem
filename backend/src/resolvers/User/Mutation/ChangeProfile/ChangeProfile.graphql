@@ -1,0 +1,9 @@
+type ChangeProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Mutation {
+  ChangeProfile(penName: String, bio: String, avatar: String): ChangeProfileResponse!
+}
