@@ -18,7 +18,13 @@ const resolvers = {
           };
         } else {
           if (password) {
-            const user = await User.create({ email, password, fullName, penName }).save();
+            const user = new User();
+            user.email = email;
+            await user.setPassword(password);
+            user.fullName = fullName;
+            user.penName = penName;
+            await user.save();
+
             const token = await createJWT(user.id);
             if (user) {
               return {
@@ -36,7 +42,13 @@ const resolvers = {
               };
             }
           } else if (oauthId) {
-            const user = await User.create({ email, oauthId, fullName, penName }).save();
+            const user = new User();
+            user.email = email;
+            user.oauthId = oauthId;
+            user.fullName = fullName;
+            user.penName = penName;
+            await user.save();
+
             const token = await createJWT(user.id);
             if (user) {
               return {
