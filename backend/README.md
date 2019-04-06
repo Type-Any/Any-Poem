@@ -77,6 +77,9 @@ $ docker-compose up -d
 - [x] 모델(Entity) 정의
 - [x] 모델(Entity) method 추가
 - [x] graphQL type, resolver 추가
+- [x] Profile 수정
+- [ ] Password 변경
+- [ ] Avatar 이미지 AWS S3 업로드
 
 ## Notes
 
