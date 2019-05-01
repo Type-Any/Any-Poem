@@ -23,24 +23,24 @@ const resolvers = {
               user.avatar = avatar;
             }
 
-            user.save();
+            await user.save();
 
             return {
-              ok: true,
               error: null,
+              ok: true,
               user
             };
           } else {
             return {
-              ok: false,
               error: "User not found",
+              ok: false,
               user: null
             };
           }
         } catch (e) {
           return {
-            ok: false,
             error: e.message,
+            ok: false,
             user: null
           };
         }
